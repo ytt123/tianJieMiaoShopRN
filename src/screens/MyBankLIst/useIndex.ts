@@ -1,0 +1,80 @@
+import { useCallback, useState, useEffect } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { ajax, url } from '../../api'
+import useSpinner from '../../utils/hooks/useSpinner'
+import { Toast } from '@ant-design/react-native'
+import useUser from '../../utils/hooks/useUser'
+const useIndex = () => {
+  const [info, setInfo] = useState<any>({
+    uuid: '',
+    bank_name: '',
+    sub_bank_name: '',
+    card_holder: '',
+    card_number: '',
+  })
+  const { spinningChange } = useSpinner()
+  const { goBack } = useNavigation()
+  const { user_type = '' } = useUser()
+  const isagent = user_type.indexOf('AGENT') > -1
+
+  const submit = useCallback(() => {
+    if (!isagent) {
+      spinningChange(true)
+      ajax({ url: url.bankCardsEdit, data: info })
+        .then(res => {
+          Toast.show(res?.msg)
+          spinningChange(false)
+          setTimeout(() => {
+            goBack()
+          }, 500)
+        })
+        .catch(err => {
+          spinningChange(false)
+        })
+    } else {
+      spinningChange(true)
+      ajax({ url: url.agentBankCardsEdit, data: info })
+        .then(res => {
+          Toast.show(res?.msg)
+          spinningChange(false)
+          setTimeout(() => {
+            goBack()
+          }, 500)
+        })
+        .catch(err => {
+          spinningChange(false)
+        })
+    }
+  }, [goBack, info, isagent, spinningChange])
+
+  useEffect(() => {
+    if (!isagent) {
+      spinningChange(true)
+      ajax({ url: url.bankCardsgetDefault })
+        .then(res => {
+          spinningChange(false)
+
+          const { uuid, bank_name, sub_bank_name, card_holder, card_number } = res?.data || {}
+          setInfo({ uuid, bank_name, sub_bank_name, card_holder, card_number })
+        })
+        .catch(err => {
+          spinningChange(false)
+        })
+    } else {
+      spinningChange(true)
+      ajax({ url: url.agentBankCardsgetDefault })
+        .then(res => {
+          spinningChange(false)
+
+          const { uuid, bank_name, sub_bank_name, card_holder, card_number } = res?.data || {}
+          setInfo({ uuid, bank_name, sub_bank_name, card_holder, card_number })
+        })
+        .catch(err => {
+          spinningChange(false)
+        })
+    }
+  }, [isagent, spinningChange])
+  return { submit, info, setInfo }
+}
+
+export default useIndex

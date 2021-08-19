@@ -1,0 +1,2 @@
+export const AMAP_IOS_KEY = '236839ea7c40c00a9cb5f1dd449d9a10'
+export const AMAP_ANDROID_KEY = 'a17b67a1d120b989e29e85210414c273'

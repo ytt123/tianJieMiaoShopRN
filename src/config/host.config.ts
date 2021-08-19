@@ -1,0 +1,5 @@
+export const userHost = 'https://api.ypemy.com'
+export const qiniuUploadHost = 'https://upload.qiniup.com'
+export const qiniuApiHost = 'https://api.qiniu.com'
+export const websocketHost = 'ws://47.110.133.195:7273'
+// export const websocketHost = 'wss://api.hnshanzhiyuan.com/websocket'
