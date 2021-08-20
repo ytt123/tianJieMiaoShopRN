@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ImageBackground } from 'react-native'
 import { Iconfont, Touchable } from '../../../components'
 import style from './style'
 import { Modal } from '@ant-design/react-native'
@@ -25,6 +25,7 @@ const Index: React.FC<IndexProps> = props => {
     <View style={style.wrapper}>
       <Modal
         // popup
+        style={{ backgroundColor: 'red', width: '100%' }}
         maskClosable
         visible={visible}
         transparent
@@ -34,9 +35,13 @@ const Index: React.FC<IndexProps> = props => {
         //   setVisible(false)
         // }}
       >
-        <View>
-          <Text>123</Text>
-        </View>
+        <ImageBackground source={require('./assets/bg.png')} style={[style.bgwrapper]}>
+          <Text>请搜索“韩梅梅美衣馆”</Text>
+          <Text>正在直播中</Text>
+
+
+          <Text> 扫一扫 下载app</Text>
+        </ImageBackground>
       </Modal>
     </View>
   )

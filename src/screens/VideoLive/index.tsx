@@ -150,7 +150,7 @@ const Index: React.FC<IndexProps> = props => {
         allInfo={goodsinfo}
         live_log_uuid={shopInfo?.live_log_uuid}
       />
-      {/* <ShareModal
+      <ShareModal
         visible={showShare}
         setVisible={setShowShare}
         info={info}
@@ -158,7 +158,7 @@ const Index: React.FC<IndexProps> = props => {
         allInfo={goodsinfo}
         live_log_uuid={shopInfo?.live_log_uuid}
       />
- */}
+
       <ReportModal visible={showReport} setVisible={setShowReport} />
       <Function
         showGoodscb={() => {

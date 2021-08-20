@@ -1,8 +1,17 @@
 import { StyleSheet } from 'react-native'
 import { btnPrimaryColor, color000, color999 } from '../../../config/style.config'
 
+const wid = 300
+const hei = (wid * 692) / 610
 const style = StyleSheet.create({
   wrapper: {},
+  bgwrapper: {
+    width: wid,
+    height: hei,
+    paddingHorizontal: 16,
+    borderRadius: 5,
+    overflow: 'hidden',
+  },
   topWrap: {},
   bom: {
     height: 44,

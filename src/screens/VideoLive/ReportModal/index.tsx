@@ -17,7 +17,15 @@ const Index: React.FC<IndexProps> = props => {
 
   return (
     <View style={style.wrapper}>
-      <Modal popup maskClosable visible={visible} animationType="slide-up" onClose={() => {}}>
+      <Modal
+        popup
+        maskClosable
+        visible={visible}
+        animationType="slide-up"
+        onClose={() => {
+          setVisible(false)
+        }}
+      >
         <View style={{ paddingBottom: bottom }}>
           <Text style={style.titleText}>举报原因填写</Text>
 
