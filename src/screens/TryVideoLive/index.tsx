@@ -1,10 +1,12 @@
-import React from 'react'
-import { View, TouchableOpacity, ScrollView, SafeAreaView, Image } from 'react-native'
+import React, { useState } from 'react'
+import { View, TouchableOpacity, ScrollView, SafeAreaView, Image, Text } from 'react-native'
 import styles from './style'
 import useIndex from './useIndex'
 import { RtcLocalView, RtcRemoteView, VideoRenderMode } from 'react-native-agora'
 import { useNavigation } from '@react-navigation/native'
-
+import Bom from './Bom'
+import Top from './Top'
+import AdjustModal from './AdjustModal'
 interface IndexProps {
   // route: { params: { order_no: string } }
 }
@@ -16,21 +18,23 @@ const Index: React.FC<IndexProps> = props => {
   //   },
   // } = props
 
+  const [visible, setVisible] = useState<boolean>(false)
   const { endCall, info } = useIndex('123123123')
   const { joinSucceed, peerIds, channelName } = info
   const { goBack } = useNavigation()
   return (
-    <SafeAreaView style={styles.max}>
+    <View style={styles.max}>
+      <Top />
+
       <View style={styles.max}>
-        <View style={styles.max}>
-          {joinSucceed ? (
-            <View style={styles.fullView}>
-              <RtcLocalView.SurfaceView
-                style={styles.max}
-                channelId={channelName}
-                renderMode={VideoRenderMode.Hidden}
-              />
-              {/* {
+        {joinSucceed ? (
+          <View style={styles.fullView}>
+            <RtcLocalView.SurfaceView
+              style={styles.max}
+              channelId={channelName}
+              renderMode={VideoRenderMode.Hidden}
+            />
+            {/* {
                 <ScrollView
                   style={styles.remoteContainer}
                   contentContainerStyle={{ paddingHorizontal: 2.5 }}
@@ -50,20 +54,13 @@ const Index: React.FC<IndexProps> = props => {
                     })}
                 </ScrollView>
               } */}
-            </View>
-          ) : null}
-        </View>
-        {/* <TouchableOpacity
-          style={styles.bom}
-          onPress={() => {
-            endCall()
-            goBack()
-          }}
-        >
-          <Image source={require('./assets/end.png')} style={styles.icon} />
-        </TouchableOpacity> */}
+          </View>
+        ) : null}
       </View>
-    </SafeAreaView>
+
+      <Bom showcb={setVisible} livecb={() => {}} />
+      <AdjustModal visible={visible} setVisible={setVisible} />
+    </View>
   )
 }
 

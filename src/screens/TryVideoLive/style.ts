@@ -54,4 +54,20 @@ export default StyleSheet.create({
     height: 45,
     width: 45,
   },
+  addbom: {
+    backgroundColor: 'red',
+    height: 100,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  addtop: {
+    backgroundColor: 'green',
+    height: 100,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
 })

@@ -88,3 +88,5 @@ export const wrapperBg = '#F4f4f4'
  * 横向间距
  */
 export const paddingH = 16
+
+export const gr8e = '#8e8e8e'

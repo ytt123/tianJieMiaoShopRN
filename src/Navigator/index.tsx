@@ -46,7 +46,13 @@ export default function App() {
           },
         }}
       >
-        {/* <Stack.Screen name={'test'} component={VideoLive} /> */}
+        <Stack.Screen
+          name={'test'}
+          component={TryVideoLive}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name={mainScreenConfig.TabNavigator.name}
           component={TabNavigator}
@@ -165,6 +171,7 @@ export default function App() {
             title: mainScreenConfig.TryVideoLive.title,
             headerBackTitleVisible: false,
             // gesturesEnabled: false,
+            headerShown: false,
             gestureEnabled: false,
           }}
         />
