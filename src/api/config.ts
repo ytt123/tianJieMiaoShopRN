@@ -7,19 +7,11 @@ let THIRD_PARTY_URL = ''
 let APP_APPLET_URL = ''
 
 if (env === 'local') {
-  BASE_URL = 'http://192.168.11.89:9001'
-  THIRD_PARTY_URL = 'https://dev.app-third-party.pincll.net'
-  APP_APPLET_URL = 'https://dev.app-applet.pincll.net'
+  BASE_URL = 'http://192.168.2.203:30008'
 } else if (env === 'development') {
   BASE_URL = 'https://api.ppzx168.com.cn'
-
-  // BASE_URL = 'http://192.168.11.162:9009'
-  THIRD_PARTY_URL = 'https://dev.app-third-party.pincll.net'
-  APP_APPLET_URL = 'https://dev.app-applet.pincll.net'
 } else if (env === 'production') {
-  BASE_URL = 'https://api.pincll.com'
-  THIRD_PARTY_URL = 'https://app-third-party.pincll.com'
-  APP_APPLET_URL = 'https://app-applet.pincll.com'
+  BASE_URL = 'https://api.ppzx168.com.cn'
 }
 
 const V1 = 'v1'

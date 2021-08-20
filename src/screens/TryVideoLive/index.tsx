@@ -22,10 +22,9 @@ const Index: React.FC<IndexProps> = props => {
   const { endCall, info } = useIndex('123123123')
   const { joinSucceed, peerIds, channelName } = info
   const { goBack } = useNavigation()
+
   return (
     <View style={styles.max}>
-      <Top />
-
       <View style={styles.max}>
         {joinSucceed ? (
           <View style={styles.fullView}>
@@ -57,7 +56,7 @@ const Index: React.FC<IndexProps> = props => {
           </View>
         ) : null}
       </View>
-
+      <Top />
       <Bom showcb={setVisible} livecb={() => {}} />
       <AdjustModal visible={visible} setVisible={setVisible} />
     </View>

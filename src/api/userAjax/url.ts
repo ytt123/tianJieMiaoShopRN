@@ -51,6 +51,9 @@ const url: {
   shopLiveLogsStart: `${PREFIX_URL}/shop_live_logs/start`, //开启直播
   shopLiveLogsUpdate: `${PREFIX_URL}/shop_live_logs/update`, //更新商品列表
   shopLiveLogsEnd: `${PREFIX_URL}/shop_live_logs/end`, //关闭直播
+
+  // add
+  agentLiveApplysCreate: `${PREFIX_URL}/agent_live_applys/create`, //申请直播
 }
 
 export default url

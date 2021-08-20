@@ -8,16 +8,19 @@ import mainScreenConfig from '../../../config/mainScreen.config'
 import { qiniuFileUpload } from '../../../utils/file'
 import { showImagePicker } from '../../../utils/fs/imageSelect'
 import useUser from '../../../utils/hooks/useUser'
+
+import { LiveReviewStatus } from '../../../constants/live.constants'
 const useIndex = () => {
   const [isFormal, setIsFormal] = useState<any>(false)
   const navigation = useNavigation()
   const { navigate } = navigation
   const [info, setInfo] = useState<any>([])
   const [title, setTitle] = useState<any>('')
-  const [thum, setThum] = useState<any>('')
+  const [thum, setThum] = useState<any>('https://static.ppzx168.com.cn/611f5a6db1422.png')
+  // const [thum, setThum] = useState<any>('')
   const [pre_begin_time, setPre_begin_time] = useState<any>('')
 
-  const { shopUuid } = useUser()
+  const { shopUuid, user_type, agentUuid } = useUser()
 
   const { spinningChange } = useSpinner()
   const addClick = useCallback(async () => {
@@ -50,8 +53,22 @@ const useIndex = () => {
       spinningChange(true)
 
       try {
+        //申请直播
+        const applyres = await ajax({
+          url: url.agentLiveApplysCreate,
+          data: {
+            agent_uuid: agentUuid,
+            title,
+            thum,
+            begin_time: pre_begin_time,
+            goods_uuids: info.map((item: any) => item?.order_goods_uuid),
+          },
+        })
+        console.log('审核结果', JSON.stringify(applyres, null, 2))
+        // if(   applyres.data.status  === LiveReviewStatus.)
+        //other
         await ajax({ url: url.shopLiveLogsEnd })
-        const openLiveData = await ajax({
+        await ajax({
           url: url.shopLiveLogsStart,
           data: {
             title,
@@ -82,7 +99,7 @@ const useIndex = () => {
     } else {
       navigate(mainScreenConfig.TryVideoLive.name, {})
     }
-  }, [info, isFormal, navigate, pre_begin_time, spinningChange, thum, title])
+  }, [agentUuid, info, isFormal, navigate, pre_begin_time, spinningChange, thum, title])
 
   return {
     submit,

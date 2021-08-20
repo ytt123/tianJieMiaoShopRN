@@ -12,10 +12,16 @@ const useRedux = () => {
   const user_type = useSelector<any, string>(state =>
     state.getIn(['init', 'userInfo', 'user_type']),
   )
+
   const shopTypeValue = useSelector<any, string>(state =>
     state.getIn(['init', 'userInfo', 'shop_info', 'type_value']),
   )
   const shopUuid = useSelector<any, string>(state => state.getIn(['init', 'userInfo', 'shop_uuid']))
+
+  const agentUuid = useSelector<any, string>(state =>
+    state.getIn(['init', 'userInfo', 'agent_uuid']),
+  )
+
   const dispatch = useDispatch()
   /**
    * 改变用户在线状态
@@ -83,7 +89,7 @@ const useRedux = () => {
     loginTip,
     userRead,
     user_type,
-
+    agentUuid,
     shopUuid,
   }
 }
