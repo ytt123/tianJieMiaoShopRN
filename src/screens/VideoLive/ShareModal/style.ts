@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { btnPrimaryColor, color000, color999 } from '../../../config/style.config'
 
-const wid = 300
+const wid = 350
 const hei = (wid * 692) / 610
 const style = StyleSheet.create({
   wrapper: {},
@@ -9,38 +9,34 @@ const style = StyleSheet.create({
     width: wid,
     height: hei,
     paddingHorizontal: 16,
-    borderRadius: 5,
-    overflow: 'hidden',
-  },
-  topWrap: {},
-  bom: {
-    height: 44,
-    backgroundColor: btnPrimaryColor,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 16,
-    marginVertical: 10,
-    borderRadius: 22,
-  },
-  topTitleWrap: {
     justifyContent: 'space-between',
+    paddingVertical: 50,
     alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: 15,
-    paddingHorizontal: 16,
   },
-  topCancelIcon: {
-    height: 20,
-    width: 20,
-    color: color999,
-  },
-  btnText: {
-    color: '#fff',
+  topWrap: { justifyContent: 'center', alignItems: 'center' },
+  bomWrap: { justifyContent: 'center', alignItems: 'center' },
+
+  icon: {
+    width: 68,
+    height: 68,
+    position: 'absolute',
+    top: -34,
+    borderRadius: 34,
+    left: (wid - 68) / 2,
+    right: 0,
   },
   titleText: {
     fontSize: 16,
-    lineHeight: 22,
-    color: color000,
+    color: '#fff',
+  },
+  desText: {
+    fontSize: 14,
+    color: '#fff',
+  },
+  tipText: {
+    marginTop: 16,
+    fontSize: 14,
+    color: '#FF2442',
   },
 })
 

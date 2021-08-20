@@ -25,8 +25,13 @@ const Index: React.FC<IndexProps> = props => {
         onClose={() => {
           setVisible(false)
         }}
+        style={{
+          // backgroundColor: 'red',
+          borderTopRightRadius: 10,
+          borderTopLeftRadius: 10,
+        }}
       >
-        <View style={{ paddingBottom: bottom }}>
+        <View style={{ paddingBottom: bottom, marginHorizontal: 16 }}>
           <Text style={style.titleText}>举报原因填写</Text>
 
           <ImageChoose />

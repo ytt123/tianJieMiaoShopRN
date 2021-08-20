@@ -1,46 +1,52 @@
 import React, { useState } from 'react'
-import { View, Text, ImageBackground } from 'react-native'
+import { View, Text, ImageBackground, Image, Button } from 'react-native'
 import { Iconfont, Touchable } from '../../../components'
+import { defaultIcon } from '../../../assets/images'
 import style from './style'
-import { Modal } from '@ant-design/react-native'
-
+// import { Modal } from '@ant-design/react-native'
+import QRCode from 'react-native-qrcode-svg'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+
 import useIndex from './useIndex'
+import Modal from 'react-native-modal'
 interface IndexProps {
   visible: boolean
   setVisible: any
-  setInfo: any
   info: any
   allInfo: any
-  live_log_uuid: string
 }
 const Index: React.FC<IndexProps> = props => {
-  const { visible, setVisible, setInfo, info, allInfo, live_log_uuid } = props
-  const [map, setMap] = useState({})
-  const { bottom } = useSafeAreaInsets()
-  const { update } = useIndex(allInfo, info, live_log_uuid)
-  // console.log('222--------', JSON.stringify(allInfo, null, 2), info)
+  const { visible, setVisible, info, allInfo } = props
 
   return (
     <View style={style.wrapper}>
       <Modal
-        // popup
-        style={{ backgroundColor: 'red', width: '100%' }}
-        maskClosable
-        visible={visible}
-        transparent
-        // animationType="slide-up"
-        // onClose={() => {
-        //   setMap({ name: '' })
-        //   setVisible(false)
-        // }}
+        isVisible={visible}
+        style={{ justifyContent: 'center', alignItems: 'center' }}
+        onBackdropPress={() => console.log(123123)}
       >
-        <ImageBackground source={require('./assets/bg.png')} style={[style.bgwrapper]}>
-          <Text>请搜索“韩梅梅美衣馆”</Text>
-          <Text>正在直播中</Text>
+        <ImageBackground source={require('./assets/bg.png')} style={{}}>
+          <TouchableWithoutFeedback
+            style={style.bgwrapper}
+            onPress={() => {
+              setVisible(false)
+            }}
+          >
+            <Image source={{ uri: defaultIcon }} style={style.icon} />
 
-
-          <Text> 扫一扫 下载app</Text>
+            <View style={style.topWrap}>
+              <Text style={style.desText}>
+                请搜索 <Text style={style.titleText}>“韩梅梅美衣馆”</Text>
+              </Text>
+              <Text style={[style.desText, { marginTop: 10 }]}>正在直播中</Text>
+            </View>
+            <View style={style.bomWrap}>
+              <QRCode size={150} value={'ssss'} />
+              <Text style={style.tipText}> 扫一扫 下载app</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </ImageBackground>
       </Modal>
     </View>
