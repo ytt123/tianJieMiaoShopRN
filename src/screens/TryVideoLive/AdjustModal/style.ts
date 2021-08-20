@@ -33,6 +33,13 @@ const style = StyleSheet.create({
     fontSize: 11,
     marginTop: 5,
   },
+  slide: {
+    width: '100%',
+    height: 40,
+    position: 'absolute',
+    bottom: 300,
+    paddingHorizontal: 20,
+  },
 })
 
 export default style

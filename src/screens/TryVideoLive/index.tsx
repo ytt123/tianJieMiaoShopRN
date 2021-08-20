@@ -22,6 +22,8 @@ const Index: React.FC<IndexProps> = props => {
   const { endCall, info } = useIndex('123123123')
   const { joinSucceed, peerIds, channelName } = info
   const { goBack } = useNavigation()
+  //隐藏试播预览
+  const [isTry, setTry] = useState<boolean>(true)
 
   return (
     <View style={styles.max}>
@@ -56,8 +58,16 @@ const Index: React.FC<IndexProps> = props => {
           </View>
         ) : null}
       </View>
-      <Top />
-      <Bom showcb={setVisible} livecb={() => {}} />
+      {isTry && <Top />}
+      {isTry && (
+        <Bom
+          showcb={setVisible}
+          livecb={() => {
+            setTry(false)
+          }}
+        />
+      )}
+
       <AdjustModal visible={visible} setVisible={setVisible} />
     </View>
   )

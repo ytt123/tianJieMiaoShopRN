@@ -3,8 +3,7 @@ import { View, Text } from 'react-native'
 import { Iconfont, Touchable } from '../../../components'
 import style from './style'
 import { Modal } from '@ant-design/react-native'
-import Head from './Head'
-import List from './List'
+import Slider from '@react-native-community/slider'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 interface IndexProps {
   visible: boolean
@@ -32,6 +31,17 @@ const Index: React.FC<IndexProps> = props => {
           <View style={style.top}>
             <Text style={style.toptext}>美颜</Text>
             <Iconfont iconfont={'\ue624'} onPress={() => setVisible(false)} />
+          </View>
+
+          <View style={style.slide}>
+            <Slider
+              minimumValue={0}
+              maximumValue={1}
+              minimumTrackTintColor="rgba(121,188,242,1)"
+              maximumTrackTintColor="rgba(239,238,240,1)"
+              // value={}
+              onValueChange={e => {}}
+            />
           </View>
 
           <View style={style.rows}>
