@@ -46,7 +46,13 @@ export default function App() {
           },
         }}
       >
-        <Stack.Screen name={'test'} component={PublishVideo} options={{}} />
+        <Stack.Screen
+          name={'test'}
+          component={VideoLive}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name={mainScreenConfig.TabNavigator.name}
           component={TabNavigator}

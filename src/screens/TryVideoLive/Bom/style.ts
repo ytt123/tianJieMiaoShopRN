@@ -4,7 +4,7 @@ import { color000, color333 } from '../../../config/style.config'
 const { width } = Dimensions.get('screen')
 const style = StyleSheet.create({
   wrapper: {
-    backgroundColor: 'green',
+    backgroundColor: 'rgba(255,255,255,0.5)',
     height: 100,
     position: 'absolute',
     bottom: 0,

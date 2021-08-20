@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 import { color000, color333 } from '../../../config/style.config'
 const style = StyleSheet.create({
   wrapper: {
-    backgroundColor: 'green',
+    backgroundColor: 'rgba(255,255,255,0.5)',
     position: 'absolute',
     top: 0,
     left: 0,

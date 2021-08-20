@@ -10,3 +10,6 @@ export const commentEmptyPng = `${userHost}/images/comment_empty.png`
 export const addressEmptyPng = `${userHost}/images/address_empty.png`
 export const orderEmptyPng = `${userHost}/images/order_empty.png`
 export const goodsListEmptyPng = `${userHost}/images/goods_list_empty.png`
+
+//默认头像
+export const defaultIcon = 'https://static.ppzx168.com.cn/611b60f150a6b.png'

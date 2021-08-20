@@ -35,12 +35,12 @@ const Index: React.FC<IndexProps> = props => {
       }}
       isflow={1}
     >
-      <View>
+      {/* <View>
         <Iconfont
           iconfont={issele ? '\ue656' : '\ue6d7'}
           style={issele ? style.seleItemIcon : style.itemIcon}
         />
-      </View>
+      </View> */}
       <Image source={thum ? { uri: thum } : require('./assets/icon.png')} style={style.icon} />
       <View style={style.center}>
         <Text numberOfLines={2} style={style.titleText}>

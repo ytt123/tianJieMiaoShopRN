@@ -38,7 +38,7 @@ const Index: React.FC<IndexProps> = props => {
           <View style={style.topWrap}>
             <View style={style.topTitleWrap}>
               <View style={style.topCancelIcon} />
-              <Text style={style.titleText}>选择带货商品</Text>
+              <Text style={style.titleText}>购物袋</Text>
               <Touchable
                 onPress={() => {
                   setMap({ name: '' })
@@ -52,7 +52,7 @@ const Index: React.FC<IndexProps> = props => {
           </View>
 
           <List map={map} info={info} setInfo={setInfo} visible={visible} setVisible={setVisible} />
-          <Touchable
+          {/* <Touchable
             style={style.bom}
             onPress={() => {
               update()
@@ -61,7 +61,7 @@ const Index: React.FC<IndexProps> = props => {
             }}
           >
             <Text style={style.btnText}>选好了</Text>
-          </Touchable>
+          </Touchable> */}
         </View>
       </Modal>
     </View>

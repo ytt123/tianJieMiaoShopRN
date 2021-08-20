@@ -27,7 +27,7 @@ const Index: React.FC<IndexProps> = props => {
 
   return (
     <View style={styles.max}>
-      <View style={styles.max}>
+      {/* <View style={styles.max}>
         {joinSucceed ? (
           <View style={styles.fullView}>
             <RtcLocalView.SurfaceView
@@ -35,7 +35,7 @@ const Index: React.FC<IndexProps> = props => {
               channelId={channelName}
               renderMode={VideoRenderMode.Hidden}
             />
-            {/* {
+            {
                 <ScrollView
                   style={styles.remoteContainer}
                   contentContainerStyle={{ paddingHorizontal: 2.5 }}
@@ -54,10 +54,10 @@ const Index: React.FC<IndexProps> = props => {
                       )
                     })}
                 </ScrollView>
-              } */}
+              }
           </View>
         ) : null}
-      </View>
+      </View> */}
       {isTry && <Top />}
       {isTry && (
         <Bom
