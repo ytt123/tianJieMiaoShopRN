@@ -9,9 +9,7 @@ interface IndexProps {
 const Index: React.FC<IndexProps> = props => {
   const { map, setMap } = props
   const [value] = useState(map?.name)
-  // useEffect(() => {
-  //   !!defaulValue && setValue(defaulValue)
-  // }, [defaulValue])
+
   return (
     <View style={[style.wrapper]}>
       <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
@@ -19,12 +17,8 @@ const Index: React.FC<IndexProps> = props => {
           <Iconfont iconfont={'\ue744'} style={style.searchicon} />
           <TextInput
             onChangeText={text => {
-              setMap({ name: text.trim() })
+              setMap((pre: any) => ({ ...pre, name: text.trim() }))
             }}
-            // onBlur={event => {
-            //   const text = event.nativeEvent.text.trim()
-            //   setName(text)
-            // }}
             defaultValue={value}
             returnKeyLabel={'搜索'}
             returnKeyType={'search'}

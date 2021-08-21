@@ -1,24 +1,26 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { ajax, url } from '../../../api'
 import { Toast } from '@ant-design/react-native'
 import { useNavigation } from '@react-navigation/native'
-import { useActionSheet } from '@expo/react-native-action-sheet'
 import useSpinner from '../../../utils/hooks/useSpinner'
 import mainScreenConfig from '../../../config/mainScreen.config'
 import { qiniuFileUpload } from '../../../utils/file'
 import { showImagePicker } from '../../../utils/fs/imageSelect'
 import useUser from '../../../utils/hooks/useUser'
-
-import { LiveReviewStatus } from '../../../constants/live.constants'
+import { LiveReviewStatus, ShopUserType } from '../../../constants/live.constants'
+import { grshow } from '../../../utils/grToast'
 const useIndex = () => {
   const [isFormal, setIsFormal] = useState<any>(false)
   const navigation = useNavigation()
   const { navigate } = navigation
   const [info, setInfo] = useState<any>([])
+  const [recomInfo, setRecomInfo] = useState<any>([])
   const [title, setTitle] = useState<any>('')
   const [thum, setThum] = useState<any>('https://static.ppzx168.com.cn/611f5a6db1422.png')
   // const [thum, setThum] = useState<any>('')
   const [pre_begin_time, setPre_begin_time] = useState<any>('')
+  const [isPredictLive, setIsPredictLive] = useState<any>('')
+  const [predictTime, setPredictTime] = useState<any>('')
 
   const { shopUuid, user_type, agentUuid } = useUser()
 
@@ -33,73 +35,101 @@ const useIndex = () => {
   }, [shopUuid, spinningChange])
 
   const submit = useCallback(async () => {
-    if (isFormal) {
-      if (!title) {
-        Toast.show('请输入直播标题')
-        return
-      }
-      if (!thum) {
-        Toast.show('请上传直播封面')
-        return
-      }
-      if (!pre_begin_time) {
-        Toast.show('请设置预约直播时间')
-        return
-      }
-      if (info.length === 0) {
-        Toast.show('还未选择带货商品')
-        return
-      }
-      spinningChange(true)
+    // if (isFormal) {
+    if (!title) {
+      grshow('请输入直播标题')
+      return
+    }
+    if (!thum) {
+      grshow('请上传直播封面')
+      return
+    }
+    if (!pre_begin_time) {
+      grshow('请设置预约直播时间')
+      return
+    }
+    if (info.length === 0) {
+      grshow('请添加商品')
+      return
+    }
 
-      try {
+    if (recomInfo.length === 0) {
+      grshow('请添加推荐商品')
+      return
+    }
+
+    spinningChange(true)
+
+    try {
+      // 商家
+      if (user_type === ShopUserType.SHOP) {
+        //店铺没有添加审核逻辑
+      } else if (user_type === ShopUserType.AGENT_ADMIN) {
+        const data = {
+          agent_uuid: agentUuid,
+          title,
+          thum,
+          begin_time: pre_begin_time,
+          // is_predict_live: isPredictLive,
+          // predict_time: predictTime,
+          goods_uuids: info.map((item: any) => item?.order_goods_uuid),
+          // recommend_goods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
+        }
+        console.log('paramsparamsparamsparams', JSON.stringify(data, null, 2))
         //申请直播
         const applyres = await ajax({
           url: url.agentLiveApplysCreate,
-          data: {
-            agent_uuid: agentUuid,
-            title,
-            thum,
-            begin_time: pre_begin_time,
-            goods_uuids: info.map((item: any) => item?.order_goods_uuid),
-          },
+          data,
         })
         console.log('审核结果', JSON.stringify(applyres, null, 2))
-        // if(   applyres.data.status  === LiveReviewStatus.)
-        //other
-        await ajax({ url: url.shopLiveLogsEnd })
-        await ajax({
-          url: url.shopLiveLogsStart,
-          data: {
-            title,
-            thum,
-            pre_begin_time,
-            goods_uuids: info.map((item: any) => item?.order_goods_uuid),
-          },
-        })
-        const shopReadData = await ajax({
-          url: url.shopsRead,
-          data: {
-            full_fields: ['shop_live_log_info'],
-          },
-        })
-        spinningChange(false)
-        navigate(mainScreenConfig.VideoLive.name, {
-          shopInfo: shopReadData?.data,
-          goodsinfo: {
-            title,
-            thum,
-            pre_begin_time,
-            goods_uuids: info.map((item: any) => item?.order_goods_uuid),
-          },
-        })
-      } catch (err) {
-        spinningChange(false)
+
+        //平台审核未通过
+        if (applyres.data.status !== LiveReviewStatus.PLATFORMREVIEW) {
+          Toast.show('平台未审核通过')
+          spinningChange(false)
+          return
+        } else {
+          spinningChange(false)
+        }
       }
-    } else {
-      navigate(mainScreenConfig.TryVideoLive.name, {})
+
+      //other
+      await ajax({ url: url.shopLiveLogsEnd })
+      await ajax({
+        url: url.shopLiveLogsStart,
+        data: {
+          title,
+          thum,
+          pre_begin_time,
+          goods_uuids: info.map((item: any) => item?.order_goods_uuid),
+        },
+      })
+      const shopReadData = await ajax({
+        url: url.shopsRead,
+        data: {
+          full_fields: ['shop_live_log_info'],
+        },
+      })
+      spinningChange(false)
+      navigate(mainScreenConfig.VideoLive.name, {
+        shopInfo: shopReadData?.data,
+        goodsinfo: {
+          title,
+          thum,
+          pre_begin_time,
+          goods_uuids: info.map((item: any) => item?.order_goods_uuid),
+          goods: info,
+          recomgoods: recomInfo,
+        },
+      })
+    } catch (err) {
+      spinningChange(false)
     }
-  }, [agentUuid, info, isFormal, navigate, pre_begin_time, spinningChange, thum, title])
+    // }
+    //  else {
+    //   navigate(mainScreenConfig.TryVideoLive.name, {})
+    // }
+  }, [agentUuid, info, navigate, pre_begin_time, recomInfo, spinningChange, thum, title, user_type])
 
   return {
     submit,
@@ -107,6 +137,8 @@ const useIndex = () => {
     setIsFormal,
     info,
     setInfo,
+    recomInfo,
+    setRecomInfo,
     addClick,
     thum,
     setThum,
@@ -114,6 +146,10 @@ const useIndex = () => {
     setTitle,
     pre_begin_time,
     setPre_begin_time,
+    isPredictLive,
+    setIsPredictLive,
+    predictTime,
+    setPredictTime,
   }
 }
 

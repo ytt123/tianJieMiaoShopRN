@@ -20,7 +20,7 @@ const Index: React.FC<IndexProps> = props => {
     url.goodsGetBuyGoods,
     map,
   )
-
+  // uuid:[] name
   return (
     <View style={style.wrapper}>
       <FlatList

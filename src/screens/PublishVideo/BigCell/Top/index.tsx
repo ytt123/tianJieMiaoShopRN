@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import style from './style'
 import { DatePicker } from '@ant-design/react-native'
-import { dateFormatter } from '../../../utils/util'
+import { dateFormatter } from '../../../../utils/util'
 interface IndexProps {
-  setPre_begin_time?: any
+  choosecb?: any
 }
 const Index: React.FC<IndexProps> = props => {
-  const { setPre_begin_time } = props
-  const [timeValue, setTimeValue] = useState<any>('')
+  const { choosecb } = props
+  const [timeValue, setTimeValue] = useState<any>('添加时间')
   return (
     <View style={style.wrapper}>
       <View style={style.item}>
@@ -21,11 +21,11 @@ const Index: React.FC<IndexProps> = props => {
             const str = dateFormatter(value, 'MM-dd hh:mm')
             const str1 = dateFormatter(value, 'yyyy-MM-dd hh:mm:ss')
             setTimeValue(str)
-            setPre_begin_time(str1)
+            choosecb(str1)
           }}
           format="MM-SS HH:mm:ss"
         >
-          <Text style={style.titleText}>预约直播时间:{timeValue}</Text>
+          <Text style={style.titleText}>{timeValue}</Text>
         </DatePicker>
       </View>
     </View>

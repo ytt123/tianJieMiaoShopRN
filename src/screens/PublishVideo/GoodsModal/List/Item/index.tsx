@@ -29,7 +29,7 @@ const Index: React.FC<IndexProps> = props => {
             return copyArr
           } else {
             //加
-            return [...pre, { order_goods_uuid: uuid, goodsName: name }]
+            return [...pre, { order_goods_uuid: uuid, goodsName: name, sell_price, thum }]
           }
           // ({ ...pre, order_goods_uuid: uuid, goodsName: name })
         })

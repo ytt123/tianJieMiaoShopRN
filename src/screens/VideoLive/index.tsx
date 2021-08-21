@@ -26,11 +26,14 @@ const Index: React.FC<IndexProps> = props => {
     },
   } = props
 
+  console.log('goodsinfogoodsinfogoodsinfo', JSON.stringify(goodsinfo, null, 2))
   // const goodsinfo = {
   //   title: '123',
   //   thum: 'https://static.ppzx168.com.cn/60a8765bebaea.png',
   //   pre_begin_time: '2021-05-22 11:11:24',
   //   goods_uuids: ['028ff96b-1e0f-c63f-7cac-cb12a8690403'],
+  // goods: info,
+  // recomgoods: recomInfo,
   // }
 
   // const shopInfo = {
@@ -104,6 +107,8 @@ const Index: React.FC<IndexProps> = props => {
     setInfo,
     visibleAdjust,
     setVisibleAdjust,
+    visibleRecomGoods,
+    sertVisibleRecomGoods,
   } = useIndexGoods(goodsinfo?.goods_uuids)
   // const { joinSucceed, peerIds, channelName } = liveInfo
   const { goBack } = useNavigation()
@@ -124,6 +129,8 @@ const Index: React.FC<IndexProps> = props => {
         ) : null}
       </View> */}
       <Avatar
+        info={shopInfo}
+        recomgoods={goodsinfo?.recomgoods}
         closecb={() => {
           // endCall()
           // endRTM()
@@ -132,6 +139,9 @@ const Index: React.FC<IndexProps> = props => {
           }, 1000)
         }}
         attencb={() => {}}
+        showrecomcb={() => {
+          sertVisibleRecomGoods(true)
+        }}
       />
       {/* <Btn
         setVisibleAdjust={setVisibleAdjust}
@@ -141,7 +151,7 @@ const Index: React.FC<IndexProps> = props => {
         }}
       /> */}
       {/* <Speak messages={messages} /> */}
-
+      {/* 带货商品 */}
       <GoodsModal
         visible={visibleGoods}
         setVisible={setVisibleGoods}
@@ -149,6 +159,17 @@ const Index: React.FC<IndexProps> = props => {
         setInfo={setInfo}
         allInfo={goodsinfo}
         live_log_uuid={shopInfo?.live_log_uuid}
+        goodsArr={goodsinfo?.goods}
+      />
+      {/* 推荐商品 */}
+      <GoodsModal
+        visible={visibleRecomGoods}
+        setVisible={sertVisibleRecomGoods}
+        info={info}
+        setInfo={setInfo}
+        allInfo={goodsinfo}
+        live_log_uuid={shopInfo?.live_log_uuid}
+        goodsArr={goodsinfo?.recomgoods}
       />
       <ShareModal
         visible={showShare}

@@ -5,3 +5,8 @@ export enum LiveReviewStatus {
   PLATFORMREVIEW = 2,
   REFUSEREVIEW = 9,
 }
+
+export enum ShopUserType {
+  SHOP = 'SHOP',
+  AGENT_ADMIN = 'AGENT_ADMIN',
+}

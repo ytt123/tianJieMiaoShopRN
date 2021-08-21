@@ -49,4 +49,23 @@ export default StyleSheet.create({
     fontSize: 20,
     color: '#fff',
   },
+  recomgoods: {
+    position: 'absolute',
+    top: 80,
+    width: 70,
+    height: 70,
+    borderRadius: 6,
+    overflow: 'hidden',
+  },
+  recom: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  recomText: {
+    backgroundColor: '#F43161',
+    fontSize: 10,
+    color: '#fff',
+    padding: 2,
+  },
 })

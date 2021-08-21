@@ -4,19 +4,26 @@ import style from './style'
 import { DatePicker } from '@ant-design/react-native'
 import { dateFormatter } from '../../../utils/util'
 import { Touchable, Iconfont } from '../../../components'
+import Top from './Top'
 interface IndexProps {
-  ismore: boolean
-  isFormal?: boolean
+  choosecb: any
+  selecb: any
+  isSele: boolean
 }
 const Index: React.FC<IndexProps> = props => {
-  const { ismore, isFormal = false } = props
-  const [timeValue, setTimeValue] = useState<any>('')
+  const { choosecb, selecb, isSele } = props
+
   return (
     <View style={style.wrapper}>
-      <Touchable style={style.left}>
+      <Touchable
+        style={style.left}
+        onPress={() => {
+          selecb(!isSele)
+        }}
+      >
         <Iconfont
-          iconfont={isFormal ? '\ue656' : '\ue6d7'}
-          style={isFormal ? style.icon1 : style.icon2}
+          iconfont={isSele ? '\ue656' : '\ue6d7'}
+          style={isSele ? style.icon1 : style.icon2}
         />
         <View style={style.centerfont}>
           <Text style={style.titleText}>直播预报</Text>
@@ -33,7 +40,8 @@ const Index: React.FC<IndexProps> = props => {
             alignItems: 'center',
           }}
         >
-          <Text style={style.tipDesText}>{'添加时间'}</Text>
+          {/* <Text style={style.tipDesText}>{'添加时间'}</Text> */}
+          <Top choosecb={choosecb} />
           <Iconfont iconfont={'\ue6a3'} style={style.icon2} />
         </View>
       </Touchable>

@@ -73,42 +73,7 @@ const Index: React.FC<IndexProps> = props => {
           <Text style={formStyle.operText}>手机验证码登录</Text>
         </TouchableOpacity>
       </View>
-      {/* <View style={style.tip}>
-        <TouchableOpacity
-          hitSlop={{top: 15, right: 15, bottom: 15, left: 15}}
-          onPress={() => {
-            setTips(!tips);
-          }}>
-          <Iconfont
-            iconfont={tips ? '\ue62e' : '\ue64a'}
-            size={16}
-            style={style.tipImg}
-          />
-        </TouchableOpacity>
-        <View style={{flex: 1}}>
-          <Text style={style.tipText}>
-            登录/注册即代表您已阅读并同意
-            <Text
-              onPress={() => {
-                navigate(mainScreenConfig.MyAbout.name, {
-                  title: '隐私政策',
-                  type_value: 'PRIVACY_POLICY',
-                });
-              }}>
-              《壹品一美隐私政策》
-            </Text>
-            <Text
-              onPress={() => {
-                navigate(mainScreenConfig.MyAbout.name, {
-                  title: '用户协议',
-                  type_value: 'USER_AGREEMENT_USER',
-                });
-              }}>
-              《壹品一美用户协议》
-            </Text>
-          </Text>
-        </View>
-      </View> */}
+
       {isWXAppInstalled && (
         <View style={formStyle.thirdView}>
           <View style={formStyle.lineView}>

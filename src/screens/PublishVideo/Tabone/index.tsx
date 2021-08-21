@@ -11,19 +11,24 @@ import BigCell from '../BigCell'
 interface IndexProps {}
 const Index: React.FC<IndexProps> = props => {
   const [visibleGoods, setVisibleGoods] = useState(false)
+  const [visibleRecommendGoods, setVisibleRecommendGoods] = useState(false)
   const {
     info,
     setInfo,
+    recomInfo,
+    setRecomInfo,
     submit,
     addClick,
     isFormal,
     setIsFormal,
     thum,
-
     title,
     setTitle,
-
     setPre_begin_time,
+    isPredictLive,
+    setIsPredictLive,
+    predictTime,
+    setPredictTime,
   } = useIndex()
 
   return (
@@ -67,7 +72,7 @@ const Index: React.FC<IndexProps> = props => {
             ismore
             isShowLine
             press={() => {
-              setVisibleGoods(true)
+              setVisibleRecommendGoods(true)
             }}
           />
           <Cell
@@ -97,65 +102,8 @@ const Index: React.FC<IndexProps> = props => {
         </View>
 
         <View style={style.borwrap}>
-          <BigCell ismore />
+          <BigCell choosecb={setPredictTime} isSele={isPredictLive} selecb={setIsPredictLive} />
         </View>
-
-        {/* <Touchable
-          style={style.items}
-          onPress={() => {
-           setVisibleGoods(true)
-          }}
-        >
-          <Text style={style.titleText}>推荐商品</Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              flex: 1,
-              justifyContent: 'flex-end',
-              marginLeft: 10,
-            }}
-          >
-            <Text style={style.tipDesText}>{'请选择'}</Text>
-            <Iconfont iconfont={'\ue6a3'} style={style.icon2} />
-          </View>
-        </Touchable>
-        {info.map((item: any, index: number) => {
-          const { goodsName } = item
-          return (
-            <View key={index}>
-              <Text style={style.goodsText}>{goodsName}</Text>
-            </View>
-          )
-        })}
-
-        <View style={style.items}>
-          <Text style={style.titleText}>选择直播方式</Text>
-        </View>
-        <Touchable
-          style={style.liveItem}
-          onPress={() => {
-            setIsFormal(false)
-          }}
-        >
-          <Text style={style.imgText}>试播</Text>
-          <Iconfont
-            iconfont={isFormal ? '\ue6d7' : '\ue656'}
-            style={isFormal ? style.icon2 : style.icon1}
-          />
-        </Touchable>
-        <Touchable
-          style={style.liveItem}
-          onPress={() => {
-            setIsFormal(true)
-          }}
-        >
-          <Text style={style.imgText}>正式直播</Text>
-          <Iconfont
-            iconfont={isFormal ? '\ue656' : '\ue6d7'}
-            style={isFormal ? style.icon1 : style.icon2}
-          />
-        </Touchable> */}
       </ScrollView>
       <View style={style.btns}>
         <Touchable style={style.btn} onPress={submit}>
@@ -167,6 +115,12 @@ const Index: React.FC<IndexProps> = props => {
         setVisible={setVisibleGoods}
         info={info}
         setInfo={setInfo}
+      />
+      <GoodsModal
+        visible={visibleRecommendGoods}
+        setVisible={setVisibleRecommendGoods}
+        info={recomInfo}
+        setInfo={setRecomInfo}
       />
     </View>
   )

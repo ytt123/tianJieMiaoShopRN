@@ -11,20 +11,25 @@ import { TouchableThrottle, Iconfont } from '../../../components'
 interface IndexProps {
   closecb?: any
   attencb?: any
+  info: any
+  recomgoods: any
+  showrecomcb: any
 }
 
 const Index: React.FC<IndexProps> = props => {
-  const { closecb, attencb } = props
+  const { closecb, attencb, info, recomgoods, showrecomcb } = props
   const { top } = useSafeAreaInsets()
-  const { userInfo } = useUser()
-  const { avatar, nick_name, mobile } = userInfo.toJS() || {}
 
+  const { name, thum } = info || {}
+  console.log('123', JSON.stringify(recomgoods, null, 2))
+  //取第一张图
+  const firstimg = recomgoods[0]?.thum || ''
   return (
     <View style={[styles.iconWrapper, { top }]}>
       <View style={style.left}>
-        <Image source={{ uri: avatar ? avatar : defaultIcon }} style={styles.icon} />
+        <Image source={{ uri: thum ? thum : defaultIcon }} style={styles.icon} />
         <View style={style.leftcenter}>
-          <Text style={styles.nameText}>{nick_name}</Text>
+          <Text style={styles.nameText}>{name}</Text>
           <Text style={styles.nameText}>1人观看 | 0人点赞</Text>
         </View>
         <TouchableThrottle onPress={attencb}>
@@ -34,6 +39,13 @@ const Index: React.FC<IndexProps> = props => {
 
       <TouchableThrottle onPress={closecb}>
         <Iconfont iconfont={'\ue624'} style={style.cancelText} />
+      </TouchableThrottle>
+
+      <TouchableThrottle style={style.recomgoods} onPress={showrecomcb}>
+        <Image source={{ uri: firstimg }} style={{ width: '100%', height: '100%' }} />
+        <View style={style.recom}>
+          <Text style={style.recomText}>推荐</Text>
+        </View>
       </TouchableThrottle>
     </View>
   )
