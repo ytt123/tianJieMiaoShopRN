@@ -1,23 +1,34 @@
-import { useCallback, useState, useEffect, useRef } from 'react'
+import { useCallback, useState } from 'react'
 import { url, ajax } from '../../../api'
 import useSpinner from '../../../utils/hooks/useSpinner'
-const useIndex = (allInfo: any, info: any[], live_log_uuid) => {
+const useIndex = (info: any) => {
   const { spinningChange } = useSpinner()
-  const update = useCallback(() => {
+  const [desc, setDesc] = useState<any>('')
+
+  const [imgs, setImgs] = useState<any[]>([])
+  const sumbit = useCallback(() => {
+    const data = {
+      shop_uuid: info?.shop_live_log_info?.shop_uuid,
+      shop_live_log_uuid: info?.live_log_uuid,
+      content: desc,
+      sort: '', //todo
+      // img: imgs,
+      img: ['https://static.ppzx168.com.cn/611b60f150a6b.png'],
+    }
+    console.log('params', JSON.stringify(data, null, 2))
     spinningChange(true)
     ajax({
-      url: url.shopLiveLogsUpdate,
-      data: { ...allInfo, goods_uuids: info, uuid: live_log_uuid },
+      url: url.shopLiveReportscreate,
+      data,
     })
       .then(res => {
-        console.log('更新成功')
         spinningChange(false)
       })
       .catch(err => {
         spinningChange(false)
       })
-  }, [allInfo, info, live_log_uuid, spinningChange])
-  return { update }
+  }, [desc, info.live_log_uuid, info.shop_live_log_info.shop_uuid, spinningChange])
+  return { sumbit, desc, setDesc, setImgs }
 }
 
 export default useIndex

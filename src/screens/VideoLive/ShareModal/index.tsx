@@ -38,12 +38,12 @@ const Index: React.FC<IndexProps> = props => {
 
             <View style={style.topWrap}>
               <Text style={style.desText}>
-                请搜索 <Text style={style.titleText}>“韩梅梅美衣馆”</Text>
+                请搜索 <Text style={style.titleText}>“{info?.name || ''}”</Text>
               </Text>
               <Text style={[style.desText, { marginTop: 10 }]}>正在直播中</Text>
             </View>
             <View style={style.bomWrap}>
-              <QRCode size={150} value={'ssss'} />
+              <QRCode size={150} value={'http://ff.pincll.net/dbu7'} />
               <Text style={style.tipText}> 扫一扫 下载app</Text>
             </View>
           </TouchableWithoutFeedback>

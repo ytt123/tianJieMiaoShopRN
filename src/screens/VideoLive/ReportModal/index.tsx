@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TextInput } from 'react-native'
 import { Iconfont, Touchable, ImageChoose } from '../../../components'
 import style from './style'
 import { Modal } from '@ant-design/react-native'
@@ -9,12 +9,13 @@ import useIndex from './useIndex'
 interface IndexProps {
   visible: boolean
   setVisible: any
+  info: any
 }
 const Index: React.FC<IndexProps> = props => {
-  const { visible, setVisible } = props
+  const { visible, setVisible, info } = props
 
   const { bottom } = useSafeAreaInsets()
-
+  const { sumbit, desc, setDesc, setImgs } = useIndex(info)
   return (
     <View style={style.wrapper}>
       <Modal
@@ -26,18 +27,33 @@ const Index: React.FC<IndexProps> = props => {
           setVisible(false)
         }}
         style={{
-          // backgroundColor: 'red',
           borderTopRightRadius: 10,
           borderTopLeftRadius: 10,
         }}
       >
-        <View style={{ paddingBottom: bottom, marginHorizontal: 16 }}>
+        <View style={{ paddingBottom: bottom, marginHorizontal: 16, paddingTop: 36 }}>
           <Text style={style.titleText}>举报原因填写</Text>
 
-          <ImageChoose />
+          <View style={style.inputWrap}>
+            <TextInput
+              underlineColorAndroid="transparent"
+              style={style.input}
+              placeholder="请输入您想举报的内容"
+              multiline
+              maxLength={200}
+              textAlignVertical="top"
+              value={desc}
+              onChangeText={text => {
+                setDesc(text.trim())
+              }}
+              placeholderTextColor={'#999'}
+            />
+          </View>
+          <ImageChoose setImgs={setImgs} />
           <Touchable
             style={style.bom}
             onPress={() => {
+              sumbit()
               setVisible(false)
             }}
           >

@@ -46,9 +46,7 @@ const Index: React.FC<IndexProps> = props => {
         </View>
       </TouchableThrottle>
 
-      <View style={styles.bomcenter}>
-        <Text>xxxxx</Text>
-      </View>
+      <View style={styles.bomcenter}>{/* <Text>xxxxx</Text> */}</View>
       <TouchableThrottle style={styles.rightitem} onPress={reportcb}>
         <Iconfont iconfont={'\ue607'} style={styles.iconText} />
         <Text style={styles.rightText}>举报</Text>

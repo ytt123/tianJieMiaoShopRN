@@ -54,6 +54,7 @@ const url: {
 
   // add
   agentLiveApplysCreate: `${PREFIX_URL}/agent_live_applys/create`, //申请直播
+  shopLiveReportscreate: `${PREFIX_URL}/shop_live_reports/create`, //直播举报
 }
 
 export default url

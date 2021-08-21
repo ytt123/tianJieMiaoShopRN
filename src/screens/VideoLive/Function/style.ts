@@ -8,14 +8,14 @@ export default StyleSheet.create({
     bottom: 100,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: 'rgba(0,0,0,0)',
     paddingHorizontal: 11,
   },
 
   icon: {
     height: 44,
     width: 44,
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
   },
   bomcenter: { flex: 1 },
   iconText: {

@@ -9,7 +9,8 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
 
-    marginVertical: 10,
+    // marginVertical: 10,
+    marginTop: 100,
     borderRadius: 22,
   },
 
@@ -20,6 +21,19 @@ const style = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     color: color000,
+  },
+  inputWrap: {
+    paddingHorizontal: 10,
+    borderColor: '#f5f5f5',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  input: {
+    fontSize: 12,
+    height: 100,
+    color: color999,
+    lineHeight: 17,
   },
 })
 
