@@ -9,6 +9,7 @@ import { showImagePicker } from '../../../utils/fs/imageSelect'
 import useUser from '../../../utils/hooks/useUser'
 import { LiveReviewStatus, ShopUserType } from '../../../constants/live.constants'
 import { grshow } from '../../../utils/grToast'
+import { shopInfo, goodsinfo } from './mockData'
 const useIndex = () => {
   const [isFormal, setIsFormal] = useState<any>(false)
   const navigation = useNavigation()
@@ -25,6 +26,7 @@ const useIndex = () => {
   const { shopUuid, user_type, agentUuid } = useUser()
 
   const { spinningChange } = useSpinner()
+
   const addClick = useCallback(async () => {
     const imageRes = await showImagePicker('photo')
     spinningChange(true)
@@ -35,7 +37,14 @@ const useIndex = () => {
   }, [shopUuid, spinningChange])
 
   const submit = useCallback(async () => {
-    // if (isFormal) {
+    const routeurl = isFormal ? mainScreenConfig.VideoLive.name : mainScreenConfig.TryVideoLive.name
+    navigate(routeurl, {
+      shopInfo,
+      goodsinfo,
+    })
+
+    /**
+  // if (isFormal) {
     if (!title) {
       grshow('请输入直播标题')
       return
@@ -112,7 +121,10 @@ const useIndex = () => {
       })
       spinningChange(false)
 
-      navigate(mainScreenConfig.VideoLive.name, {
+      const routeurl = isFormal
+        ? mainScreenConfig.VideoLive.name
+        : mainScreenConfig.TryVideoLive.name
+      navigate(routeurl, {
         shopInfo: shopReadData?.data,
         goodsinfo: {
           title,
@@ -130,19 +142,8 @@ const useIndex = () => {
     //  else {
     //   navigate(mainScreenConfig.TryVideoLive.name, {})
     // }
-  }, [
-    agentUuid,
-    info,
-    isPredictLive,
-    navigate,
-    pre_begin_time,
-    predictTime,
-    recomInfo,
-    spinningChange,
-    thum,
-    title,
-    user_type,
-  ])
+     */
+  }, [isFormal, navigate])
 
   return {
     submit,

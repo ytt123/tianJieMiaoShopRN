@@ -22,7 +22,7 @@ const Index: React.FC<IndexProps> = props => {
   const { top } = useSafeAreaInsets()
 
   const { name, thum } = info || {}
-  console.log('123', JSON.stringify(recomgoods, null, 2))
+
   //取第一张图
   const firstimg = recomgoods[0]?.thum || ''
   const { hourStr, minStr, secStr } = useIndex()

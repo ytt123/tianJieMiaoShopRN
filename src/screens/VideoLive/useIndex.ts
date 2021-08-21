@@ -116,7 +116,7 @@ const useIndex = (shopInfo: any) => {
       requestCameraAndAudioPermission()
         .then(res => {
           if (res) {
-            // init()
+            init()
           } else {
             goBack()
           }
@@ -126,10 +126,10 @@ const useIndex = (shopInfo: any) => {
         })
     } else {
       setTimeout(() => {
-        // init()
+        init()
       }, 1000)
     }
-  }, [goBack])
+  }, [goBack, init])
 
   return {
     startCall,

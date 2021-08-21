@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import Bom from './Bom'
 import Top from './Top'
 import AdjustModal from './AdjustModal'
+import mainScreenConfig from '../../config/mainScreen.config'
 interface IndexProps {
   route: { params: { goodsinfo: any; shopInfo: any } }
 }
@@ -21,13 +22,13 @@ const Index: React.FC<IndexProps> = props => {
   const [visible, setVisible] = useState<boolean>(false)
   const { endCall, info } = useIndex('123123123')
   const { joinSucceed, peerIds, channelName } = info
-  const { goBack } = useNavigation()
+  const { goBack, navigate } = useNavigation()
   //隐藏试播预览
   const [isTry, setTry] = useState<boolean>(true)
 
   return (
     <View style={styles.max}>
-      {/* <View style={styles.max}>
+      <View style={styles.max}>
         {joinSucceed ? (
           <View style={styles.fullView}>
             <RtcLocalView.SurfaceView
@@ -35,7 +36,7 @@ const Index: React.FC<IndexProps> = props => {
               channelId={channelName}
               renderMode={VideoRenderMode.Hidden}
             />
-            {
+            {/* {
                 <ScrollView
                   style={styles.remoteContainer}
                   contentContainerStyle={{ paddingHorizontal: 2.5 }}
@@ -54,16 +55,20 @@ const Index: React.FC<IndexProps> = props => {
                       )
                     })}
                 </ScrollView>
-              }
+              } */}
           </View>
         ) : null}
-      </View> */}
+      </View>
       {isTry && <Top />}
       {isTry && (
         <Bom
           showcb={setVisible}
           livecb={() => {
-            setTry(false)
+            // setTry(false)
+            navigate(mainScreenConfig.VideoLive.name, {
+              shopInfo,
+              goodsinfo,
+            })
           }}
         />
       )}

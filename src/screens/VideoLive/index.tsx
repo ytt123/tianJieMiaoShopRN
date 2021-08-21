@@ -16,6 +16,7 @@ import useIndexGoods from './useIndexGoods'
 import AdjustView from './AdjustView'
 import AdjustModal from './AdjustModal'
 import Function from './Function'
+import { goodsinfo, shopInfo } from './mockData'
 interface IndexProps {
   route: { params: { goodsinfo: any; shopInfo: any } }
 }
@@ -27,15 +28,18 @@ const Index: React.FC<IndexProps> = props => {
     },
   } = props
 
-  // const {
-  //   endCall,
-  //   info: liveInfo,
-  //   BeautyOptions,
-  //   setBeautyOptions,
-  //   isOpenBeauty,
-  //   setIsOpenBeauty,
-  // } = useIndex(shopInfo)
-  // const { endRTM, info: RTMinfo, messages } = useIndexRTM(shopInfo)
+  // console.log('123-00-0------', JSON.stringify(goodsinfo, null, 2))
+  // console.log('123123-ds-------', JSON.stringify(shopInfo, null, 2))
+
+  const {
+    endCall,
+    info: liveInfo,
+    BeautyOptions,
+    setBeautyOptions,
+    isOpenBeauty,
+    setIsOpenBeauty,
+  } = useIndex(shopInfo)
+  const { endRTM, info: RTMinfo, messages } = useIndexRTM(shopInfo)
   const {
     visibleGoods,
     setVisibleGoods,
@@ -46,7 +50,7 @@ const Index: React.FC<IndexProps> = props => {
     visibleRecomGoods,
     sertVisibleRecomGoods,
   } = useIndexGoods(goodsinfo)
-  // const { joinSucceed, peerIds, channelName } = liveInfo
+  const { joinSucceed, peerIds, channelName } = liveInfo
   const { goBack } = useNavigation()
 
   const [showShare, setShowShare] = useState<boolean>(false)
@@ -54,7 +58,7 @@ const Index: React.FC<IndexProps> = props => {
   const [showBeauty, setShowBeauty] = useState<boolean>(false)
   return (
     <View style={styles.max}>
-      {/* <View style={styles.max}>
+      <View style={styles.max}>
         {joinSucceed ? (
           <View style={styles.fullView}>
             <RtcLocalView.SurfaceView
@@ -64,7 +68,7 @@ const Index: React.FC<IndexProps> = props => {
             />
           </View>
         ) : null}
-      </View> */}
+      </View>
       <Avatar
         info={shopInfo}
         recomgoods={goodsinfo?.recomgoods}
@@ -107,8 +111,8 @@ const Index: React.FC<IndexProps> = props => {
         }}
         zancb={() => {}}
         closecb={() => {
-          // endCall()
-          // endRTM()
+          endCall()
+          endRTM()
           setTimeout(() => {
             goBack()
           }, 1000)
