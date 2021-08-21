@@ -72,7 +72,7 @@ export const ajaxExecute = async (
     tryHideFullScreenLoading()
     const { data = {} } = response
     let { code = 0, msg = '', refresh_token = 0, re_login = 0 } = data
-    console.log('接口返回', data)
+    // console.log('接口返回', data)
     if (re_login === 1) {
       Toast.show(`${msg}，请退出登录`)
       // 重新登录

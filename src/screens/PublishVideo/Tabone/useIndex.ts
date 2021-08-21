@@ -118,7 +118,7 @@ const useIndex = () => {
           thum,
           pre_begin_time,
           goods_uuids: info.map((item: any) => item?.order_goods_uuid),
-          goods: info,
+          recomgoods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
           recomgoods: recomInfo,
         },
       })

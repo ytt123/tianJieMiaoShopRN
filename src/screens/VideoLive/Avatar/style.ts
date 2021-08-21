@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native'
-import { color000 } from '../../../config/style.config'
+import { color000, color333 } from '../../../config/style.config'
 
 export default StyleSheet.create({
   iconWrapper: {
@@ -67,5 +67,23 @@ export default StyleSheet.create({
     fontSize: 10,
     color: '#fff',
     padding: 2,
+  },
+  pointText: {
+    height: 8,
+    width: 8,
+    borderRadius: 8,
+    backgroundColor: '#FF2442',
+    marginRight: 5,
+    fontSize: 12,
+    color: color333,
+  },
+  addright: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#FCF0F4',
+    paddingHorizontal: 11,
+    paddingVertical: 4,
+    borderRadius: 2,
   },
 })

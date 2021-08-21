@@ -16,7 +16,8 @@ const Index: React.FC<IndexProps> = props => {
         <View style={style.center}>
           <Iconfont iconfont={'\ue744'} style={style.searchicon} />
           <TextInput
-            onChangeText={text => {
+            onEndEditing={event => {
+              const text = event.nativeEvent.text.trim()
               setMap((pre: any) => ({ ...pre, name: text.trim() }))
             }}
             defaultValue={value}

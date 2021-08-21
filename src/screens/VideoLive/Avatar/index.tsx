@@ -7,6 +7,7 @@ import useUser from '../../../utils/hooks/useUser'
 import style from './style'
 import { defaultIcon } from '../../../assets/images'
 import { TouchableThrottle, Iconfont } from '../../../components'
+import useIndex from './useIndex'
 
 interface IndexProps {
   closecb?: any
@@ -17,13 +18,14 @@ interface IndexProps {
 }
 
 const Index: React.FC<IndexProps> = props => {
-  const { closecb, attencb, info, recomgoods, showrecomcb } = props
+  const { closecb, attencb, info, recomgoods = [], showrecomcb } = props
   const { top } = useSafeAreaInsets()
 
   const { name, thum } = info || {}
   console.log('123', JSON.stringify(recomgoods, null, 2))
   //取第一张图
   const firstimg = recomgoods[0]?.thum || ''
+  const { hourStr, minStr, secStr } = useIndex()
   return (
     <View style={[styles.iconWrapper, { top }]}>
       <View style={style.left}>
@@ -32,13 +34,17 @@ const Index: React.FC<IndexProps> = props => {
           <Text style={styles.nameText}>{name}</Text>
           <Text style={styles.nameText}>1人观看 | 0人点赞</Text>
         </View>
-        <TouchableThrottle onPress={attencb}>
+        {/* <TouchableThrottle onPress={attencb}>
           <Text style={styles.attenText}>关注</Text>
-        </TouchableThrottle>
+        </TouchableThrottle> */}
       </View>
 
-      <TouchableThrottle onPress={closecb}>
-        <Iconfont iconfont={'\ue624'} style={style.cancelText} />
+      <TouchableThrottle onPress={() => {}} style={style.addright}>
+        {/* <Iconfont iconfont={'\ue624'} style={style.cancelText} /> */}
+        <View style={style.pointText} />
+        <Text style={{ color: '#fff' }}>
+          {hourStr}:{minStr}:{secStr}
+        </Text>
       </TouchableThrottle>
 
       <TouchableThrottle style={style.recomgoods} onPress={showrecomcb}>

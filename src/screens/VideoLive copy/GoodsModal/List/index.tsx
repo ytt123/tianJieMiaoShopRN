@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, FlatList, ActivityIndicator, RefreshControl } from 'react-native'
 import { Empty } from '../../../../components'
 import style from './style'
 import Item from './Item'
 import useList from './useNoForceList'
-// import useList from '../../../../utils/hooks/useList'
+
 import { url } from '../../../../api'
 interface IndexProps {
   visible: boolean

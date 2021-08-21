@@ -96,8 +96,8 @@ const useIndex = (shopInfo: any) => {
     await engine.current.destroy()
   }, [info])
   useEffect(() => {
-    init()
-  }, [init])
+    // init()
+  }, [])
 
   return { endRTM, info, setInfo, messages }
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, TouchableOpacity, ScrollView, SafeAreaView, Image } from 'react-native'
 import styles from './style'
 import useIndex from './useIndex'
@@ -8,11 +8,13 @@ import { useNavigation } from '@react-navigation/native'
 import Avatar from './Avatar'
 import Btn from './Btn'
 import GoodsModal from './GoodsModal'
+import ReportModal from './ReportModal'
+import ShareModal from './ShareModal'
 import Speak from './Speak'
 import useIndexRTM from './useIndexRTM'
 import useIndexGoods from './useIndexGoods'
 import AdjustView from './AdjustView'
-
+import Function from './Function'
 interface IndexProps {
   route: { params: { goodsinfo: any; shopInfo: any } }
 }
@@ -24,11 +26,14 @@ const Index: React.FC<IndexProps> = props => {
     },
   } = props
 
+  console.log('goodsinfogoodsinfogoodsinfo', JSON.stringify(goodsinfo, null, 2))
   // const goodsinfo = {
   //   title: '123',
   //   thum: 'https://static.ppzx168.com.cn/60a8765bebaea.png',
   //   pre_begin_time: '2021-05-22 11:11:24',
   //   goods_uuids: ['028ff96b-1e0f-c63f-7cac-cb12a8690403'],
+  // goods: info,
+  // recomgoods: recomInfo,
   // }
 
   // const shopInfo = {
@@ -86,29 +91,33 @@ const Index: React.FC<IndexProps> = props => {
   //   },
   // }
 
-  const {
-    endCall,
-    info: liveInfo,
-    BeautyOptions,
-    setBeautyOptions,
-    isOpenBeauty,
-    setIsOpenBeauty,
-  } = useIndex(shopInfo)
-  const { endRTM, info: RTMinfo, messages } = useIndexRTM(shopInfo)
+  // const {
+  //   endCall,
+  //   info: liveInfo,
+  //   BeautyOptions,
+  //   setBeautyOptions,
+  //   isOpenBeauty,
+  //   setIsOpenBeauty,
+  // } = useIndex(shopInfo)
+  // const { endRTM, info: RTMinfo, messages } = useIndexRTM(shopInfo)
   const {
     visibleGoods,
     setVisibleGoods,
     info,
-    setInfo,
+    recominfo,
     visibleAdjust,
     setVisibleAdjust,
-  } = useIndexGoods(goodsinfo?.goods_uuids)
-  const { joinSucceed, peerIds, channelName } = liveInfo
+    visibleRecomGoods,
+    sertVisibleRecomGoods,
+  } = useIndexGoods(goodsinfo)
+  // const { joinSucceed, peerIds, channelName } = liveInfo
   const { goBack } = useNavigation()
 
+  const [showShare, setShowShare] = useState<boolean>(false)
+  const [showReport, setShowReport] = useState<boolean>(false)
   return (
     <View style={styles.max}>
-      <View style={styles.max}>
+      {/* <View style={styles.max}>
         {joinSucceed ? (
           <View style={styles.fullView}>
             <RtcLocalView.SurfaceView
@@ -118,37 +127,79 @@ const Index: React.FC<IndexProps> = props => {
             />
           </View>
         ) : null}
-      </View>
-      <Avatar />
-      <Btn
-        setVisibleAdjust={setVisibleAdjust}
-        add={() => setVisibleGoods(true)}
-        close={() => {
-          endCall()
-          endRTM()
+      </View> */}
+      <Avatar
+        info={shopInfo}
+        recomgoods={goodsinfo?.recomgoods}
+        closecb={() => {
+          // endCall()
+          // endRTM()
           setTimeout(() => {
             goBack()
           }, 1000)
         }}
+        attencb={() => {}}
+        showrecomcb={() => {
+          sertVisibleRecomGoods(true)
+        }}
       />
-      <Speak messages={messages} />
+      {/* <Btn
+        setVisibleAdjust={setVisibleAdjust}
+        add={() => setVisibleGoods(true)}
+        close={() => {
 
+        }}
+      /> */}
+      {/* <Speak messages={messages} /> */}
+      {/* 带货商品 */}
       <GoodsModal
         visible={visibleGoods}
         setVisible={setVisibleGoods}
         info={info}
-        setInfo={setInfo}
-        allInfo={goodsinfo}
-        live_log_uuid={shopInfo?.live_log_uuid}
+        // setInfo={setInfo}
+        // allInfo={goodsinfo}
+        // live_log_uuid={shopInfo?.live_log_uuid}
+        // goodsArr={goodsinfo?.goods}
       />
-      <AdjustView
+      {/* 推荐商品 */}
+      <GoodsModal
+        visible={visibleRecomGoods}
+        setVisible={sertVisibleRecomGoods}
+        info={recominfo}
+        // setInfo={setInfo}
+        // allInfo={goodsinfo}
+        // live_log_uuid={shopInfo?.live_log_uuid}
+        // goodsArr={goodsinfo?.recomgoods}
+      />
+      <ShareModal
+        visible={showShare}
+        setVisible={setShowShare}
+        info={shopInfo}
+        allInfo={goodsinfo}
+        // live_log_uuid={shopInfo?.live_log_uuid}
+      />
+
+      <ReportModal visible={showReport} setVisible={setShowReport} info={shopInfo} />
+      <Function
+        showGoodscb={() => {
+          setVisibleGoods(true)
+        }}
+        reportcb={() => {
+          setShowReport(true)
+        }}
+        sharecb={() => {
+          setShowShare(true)
+        }}
+        zancb={() => {}}
+      />
+      {/* <AdjustView
         visible={visibleAdjust}
         setVisible={setVisibleAdjust}
         BeautyOptions={BeautyOptions}
         setBeautyOptions={setBeautyOptions}
         isOpenBeauty={isOpenBeauty}
         setIsOpenBeauty={setIsOpenBeauty}
-      />
+      /> */}
     </View>
   )
 }

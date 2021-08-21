@@ -14,6 +14,7 @@ import Speak from './Speak'
 import useIndexRTM from './useIndexRTM'
 import useIndexGoods from './useIndexGoods'
 import AdjustView from './AdjustView'
+import AdjustModal from './AdjustModal'
 import Function from './Function'
 interface IndexProps {
   route: { params: { goodsinfo: any; shopInfo: any } }
@@ -104,17 +105,18 @@ const Index: React.FC<IndexProps> = props => {
     visibleGoods,
     setVisibleGoods,
     info,
-    setInfo,
+    recominfo,
     visibleAdjust,
     setVisibleAdjust,
     visibleRecomGoods,
     sertVisibleRecomGoods,
-  } = useIndexGoods(goodsinfo?.goods_uuids)
+  } = useIndexGoods(goodsinfo)
   // const { joinSucceed, peerIds, channelName } = liveInfo
   const { goBack } = useNavigation()
 
   const [showShare, setShowShare] = useState<boolean>(false)
   const [showReport, setShowReport] = useState<boolean>(false)
+  const [showBeauty, setShowBeauty] = useState<boolean>(false)
   return (
     <View style={styles.max}>
       {/* <View style={styles.max}>
@@ -156,20 +158,20 @@ const Index: React.FC<IndexProps> = props => {
         visible={visibleGoods}
         setVisible={setVisibleGoods}
         info={info}
-        setInfo={setInfo}
-        allInfo={goodsinfo}
-        live_log_uuid={shopInfo?.live_log_uuid}
-        goodsArr={goodsinfo?.goods}
+        // setInfo={setInfo}
+        // allInfo={goodsinfo}
+        // live_log_uuid={shopInfo?.live_log_uuid}
+        // goodsArr={goodsinfo?.goods}
       />
       {/* 推荐商品 */}
       <GoodsModal
         visible={visibleRecomGoods}
         setVisible={sertVisibleRecomGoods}
-        info={info}
-        setInfo={setInfo}
-        allInfo={goodsinfo}
-        live_log_uuid={shopInfo?.live_log_uuid}
-        goodsArr={goodsinfo?.recomgoods}
+        info={recominfo}
+        // setInfo={setInfo}
+        // allInfo={goodsinfo}
+        // live_log_uuid={shopInfo?.live_log_uuid}
+        // goodsArr={goodsinfo?.recomgoods}
       />
       <ShareModal
         visible={showShare}
@@ -179,18 +181,28 @@ const Index: React.FC<IndexProps> = props => {
         // live_log_uuid={shopInfo?.live_log_uuid}
       />
 
-      <ReportModal visible={showReport} setVisible={setShowReport} info={shopInfo} />
+      {/* <ReportModal visible={showReport} setVisible={setShowReport} info={shopInfo} /> */}
+      <AdjustModal visible={showBeauty} setVisible={setShowBeauty} />
+
       <Function
+        goodsNum={goodsinfo?.goods_uuids?.length}
         showGoodscb={() => {
           setVisibleGoods(true)
         }}
         reportcb={() => {
-          setShowReport(true)
+          setShowBeauty(true)
         }}
         sharecb={() => {
           setShowShare(true)
         }}
         zancb={() => {}}
+        closecb={() => {
+          // endCall()
+          // endRTM()
+          setTimeout(() => {
+            goBack()
+          }, 1000)
+        }}
       />
       {/* <AdjustView
         visible={visibleAdjust}

@@ -1,15 +1,18 @@
 import { useState } from 'react'
 
-const useIndex = (goodsArr: any[]) => {
+const useIndex = (goodsinfo: any) => {
   const [visibleGoods, setVisibleGoods] = useState(false)
   const [visibleRecomGoods, sertVisibleRecomGoods] = useState(false)
   const [visibleAdjust, setVisibleAdjust] = useState(false)
-  const [info, setInfo] = useState<any>(goodsArr)
+  const [info] = useState<any>(goodsinfo?.goods_uuids)
+
+  const [recominfo] = useState<any>(goodsinfo?.recomgoods_uuids)
+
   return {
     visibleGoods,
     setVisibleGoods,
     info,
-    setInfo,
+    recominfo,
     visibleAdjust,
     setVisibleAdjust,
     visibleRecomGoods,

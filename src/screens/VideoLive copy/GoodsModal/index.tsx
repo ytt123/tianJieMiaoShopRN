@@ -10,17 +10,17 @@ import useIndex from './useIndex'
 interface IndexProps {
   visible: boolean
   setVisible: any
-  setInfo: any
+  // setInfo: any
   info: any
-  allInfo: any
-  live_log_uuid: string
+  // allInfo: any
+  // live_log_uuid: string
+  // goodsArr: any
 }
 const Index: React.FC<IndexProps> = props => {
-  const { visible, setVisible, setInfo, info, allInfo, live_log_uuid } = props
-  const [map, setMap] = useState({})
+  const { visible, setVisible, info } = props
+
+  const [map, setMap] = useState<any>({ uuid: info, name: '' })
   const { bottom } = useSafeAreaInsets()
-  const { update } = useIndex(allInfo, info, live_log_uuid)
-  // console.log('222--------', JSON.stringify(allInfo, null, 2), info)
 
   return (
     <View style={style.wrapper}>
@@ -30,7 +30,6 @@ const Index: React.FC<IndexProps> = props => {
         visible={visible}
         animationType="slide-up"
         onClose={() => {
-          setMap({ name: '' })
           setVisible(false)
         }}
       >
@@ -38,10 +37,9 @@ const Index: React.FC<IndexProps> = props => {
           <View style={style.topWrap}>
             <View style={style.topTitleWrap}>
               <View style={style.topCancelIcon} />
-              <Text style={style.titleText}>选择带货商品</Text>
+              <Text style={style.titleText}>购物袋</Text>
               <Touchable
                 onPress={() => {
-                  setMap({ name: '' })
                   setVisible(false)
                 }}
               >
@@ -51,17 +49,13 @@ const Index: React.FC<IndexProps> = props => {
             <Head map={map} setMap={setMap} />
           </View>
 
-          <List map={map} info={info} setInfo={setInfo} visible={visible} setVisible={setVisible} />
-          <Touchable
-            style={style.bom}
-            onPress={() => {
-              update()
-              setVisible(false)
-              //更新
-            }}
-          >
-            <Text style={style.btnText}>选好了</Text>
-          </Touchable>
+          <List
+            map={map}
+            info={info}
+            setInfo={() => {}}
+            visible={visible}
+            setVisible={setVisible}
+          />
         </View>
       </Modal>
     </View>

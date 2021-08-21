@@ -10,14 +10,14 @@ import useIndex from './useIndex'
 interface IndexProps {
   visible: boolean
   setVisible: any
-  setInfo: any
+  // setInfo: any
   info: any
-  allInfo: any
-  live_log_uuid: string
-  goodsArr: any
+  // allInfo: any
+  // live_log_uuid: string
+  // goodsArr: any
 }
 const Index: React.FC<IndexProps> = props => {
-  const { visible, setVisible, setInfo, info, allInfo, live_log_uuid, goodsArr } = props
+  const { visible, setVisible, info } = props
 
   const [map, setMap] = useState<any>({ uuid: info, name: '' })
   const { bottom } = useSafeAreaInsets()
@@ -49,7 +49,13 @@ const Index: React.FC<IndexProps> = props => {
             <Head map={map} setMap={setMap} />
           </View>
 
-          <List map={map} info={info} setInfo={setInfo} visible={visible} setVisible={setVisible} />
+          <List
+            map={map}
+            info={info}
+            setInfo={() => {}}
+            visible={visible}
+            setVisible={setVisible}
+          />
         </View>
       </Modal>
     </View>

@@ -4,7 +4,7 @@ import style from './style'
 import { Iconfont, Touchable } from '../../../../../components'
 interface IndexProps {
   data: any
-  setInfo: any
+  setInfo?: any
   info: any
   setVisible: any
 }
@@ -20,18 +20,18 @@ const Index: React.FC<IndexProps> = props => {
     <Touchable
       style={style.wrapper}
       onPress={() => {
-        setInfo((pre: any[]) => {
-          if (issele) {
-            // 减
-            const uuidIndex = uuidArr.indexOf(uuid)
-            let copyArr = [...pre]
-            copyArr.splice(uuidIndex, 1)
-            return copyArr
-          } else {
-            //加
-            return [...pre, uuid]
-          }
-        })
+        // setInfo((pre: any[]) => {
+        //   if (issele) {
+        //     // 减
+        //     const uuidIndex = uuidArr.indexOf(uuid)
+        //     let copyArr = [...pre]
+        //     copyArr.splice(uuidIndex, 1)
+        //     return copyArr
+        //   } else {
+        //     //加
+        //     return [...pre, uuid]
+        //   }
+        // })
       }}
       isflow={1}
     >

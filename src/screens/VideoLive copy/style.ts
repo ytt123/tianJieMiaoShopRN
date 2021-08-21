@@ -8,7 +8,7 @@ const dimensions = {
 export default StyleSheet.create({
   max: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f4f4f4',
   },
   buttonHolder: {
     height: 100,
