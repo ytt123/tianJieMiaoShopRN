@@ -29,7 +29,7 @@ const useIndex = (shopInfo: any) => {
     joinSucceed: false,
     peerIds: [],
   })
-  const [isOpenBeauty, setIsOpenBeauty] = useState(false)
+  const [isOpenBeauty, setIsOpenBeauty] = useState(true)
   const engine = useRef<any>(null)
   const { goBack } = useNavigation()
   const { spinningChange } = useSpinner()

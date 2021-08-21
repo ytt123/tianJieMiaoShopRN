@@ -37,10 +37,11 @@ const useIndex = () => {
   }, [shopUuid, spinningChange])
 
   const submit = useCallback(async () => {
-    const routeurl = isFormal ? mainScreenConfig.VideoLive.name : mainScreenConfig.TryVideoLive.name
-    navigate(routeurl, {
+    // const routeurl = isFormal ? mainScreenConfig.VideoLive.name : mainScreenConfig.TryVideoLive.name
+    navigate(mainScreenConfig.VideoLive.name, {
       shopInfo,
       goodsinfo,
+      isFormal,
     })
 
     /**

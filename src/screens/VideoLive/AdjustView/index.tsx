@@ -39,31 +39,32 @@ const ItemView = (props: any) => {
             } else if (type === 2) {
               setStep(level)
               setBeautyOptions((pre: any) => ({ ...pre, lighteningLevel: level }))
-            } else if (type === 3) {
-              const newlevel = Number(level.toString()) * 2
-              if (newlevel < 2 / 3) {
-                setStep(0)
-                setBeautyOptions((pre: any) => ({
-                  ...pre,
-                  lighteningContrastLevel: 0,
-                }))
-              } else if (newlevel > 2 / 3 && newlevel < 4 / 3) {
-                setStep(1)
-                setBeautyOptions((pre: any) => ({
-                  ...pre,
-                  lighteningContrastLevel: 1,
-                }))
-              } else {
-                setStep(2)
-                setBeautyOptions((pre: any) => ({
-                  ...pre,
-                  lighteningContrastLevel: 2,
-                }))
-              }
-            } else if (type === 4) {
-              setStep(level)
-              setBeautyOptions((pre: any) => ({ ...pre, rednessLevel: level }))
             }
+            // else if (type === 3) {
+            //   const newlevel = Number(level.toString()) * 2
+            //   if (newlevel < 2 / 3) {
+            //     setStep(0)
+            //     setBeautyOptions((pre: any) => ({
+            //       ...pre,
+            //       lighteningContrastLevel: 0,
+            //     }))
+            //   } else if (newlevel > 2 / 3 && newlevel < 4 / 3) {
+            //     setStep(1)
+            //     setBeautyOptions((pre: any) => ({
+            //       ...pre,
+            //       lighteningContrastLevel: 1,
+            //     }))
+            //   } else {
+            //     setStep(2)
+            //     setBeautyOptions((pre: any) => ({
+            //       ...pre,
+            //       lighteningContrastLevel: 2,
+            //     }))
+            //   }
+            // } else if (type === 4) {
+            //   setStep(level)
+            //   setBeautyOptions((pre: any) => ({ ...pre, rednessLevel: level }))
+            // }
           }}
         />
       </View>

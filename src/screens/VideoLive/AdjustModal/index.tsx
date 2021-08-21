@@ -8,12 +8,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 interface IndexProps {
   visible: boolean
   setVisible: any
+  beautyOptions: any
+  setBeautyOptions: any
 }
 const Index: React.FC<IndexProps> = props => {
-  const { visible, setVisible } = props
+  const { visible, setVisible, beautyOptions, setBeautyOptions } = props
   const [chooseIndex, setChooseIndex] = useState<number>(0)
   const { bottom } = useSafeAreaInsets()
-
+  console.log('beautyOptionsbeautyOptionsbeautyOptions', beautyOptions)
   return (
     <View style={style.wrapper}>
       <Modal
@@ -39,8 +41,18 @@ const Index: React.FC<IndexProps> = props => {
               maximumValue={1}
               minimumTrackTintColor="rgba(121,188,242,1)"
               maximumTrackTintColor="rgba(239,238,240,1)"
-              // value={}
-              onValueChange={e => {}}
+              value={
+                chooseIndex === 0 ? beautyOptions.smoothnessLevel : beautyOptions.lighteningLevel
+              }
+              onValueChange={e => {
+                const level = Math.floor(e * 10) / 10
+
+                if (chooseIndex === 0) {
+                  setBeautyOptions((pre: any) => ({ ...pre, smoothnessLevel: level }))
+                } else if (chooseIndex === 1) {
+                  setBeautyOptions((pre: any) => ({ ...pre, lighteningLevel: level }))
+                }
+              }}
             />
           </View>
 
