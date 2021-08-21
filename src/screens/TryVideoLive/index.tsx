@@ -8,15 +8,15 @@ import Bom from './Bom'
 import Top from './Top'
 import AdjustModal from './AdjustModal'
 interface IndexProps {
-  // route: { params: { order_no: string } }
+  route: { params: { goodsinfo: any; shopInfo: any } }
 }
 
 const Index: React.FC<IndexProps> = props => {
-  // const {
-  //   route: {
-  //     params: { order_no },
-  //   },
-  // } = props
+  const {
+    route: {
+      params: { goodsinfo, shopInfo },
+    },
+  } = props
 
   const [visible, setVisible] = useState<boolean>(false)
   const { endCall, info } = useIndex('123123123')

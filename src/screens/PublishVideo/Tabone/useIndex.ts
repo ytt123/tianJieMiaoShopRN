@@ -70,10 +70,10 @@ const useIndex = () => {
           title,
           thum,
           begin_time: pre_begin_time,
-          // is_predict_live: isPredictLive,
-          // predict_time: predictTime,
+          is_predict_live: isPredictLive,
+          predict_time: predictTime,
           goods_uuids: info.map((item: any) => item?.order_goods_uuid),
-          // recommend_goods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
+          recommend_goods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
         }
         console.log('paramsparamsparamsparams', JSON.stringify(data, null, 2))
         //申请直播
@@ -111,6 +111,7 @@ const useIndex = () => {
         },
       })
       spinningChange(false)
+
       navigate(mainScreenConfig.VideoLive.name, {
         shopInfo: shopReadData?.data,
         goodsinfo: {
@@ -129,7 +130,19 @@ const useIndex = () => {
     //  else {
     //   navigate(mainScreenConfig.TryVideoLive.name, {})
     // }
-  }, [agentUuid, info, navigate, pre_begin_time, recomInfo, spinningChange, thum, title, user_type])
+  }, [
+    agentUuid,
+    info,
+    isPredictLive,
+    navigate,
+    pre_begin_time,
+    predictTime,
+    recomInfo,
+    spinningChange,
+    thum,
+    title,
+    user_type,
+  ])
 
   return {
     submit,
