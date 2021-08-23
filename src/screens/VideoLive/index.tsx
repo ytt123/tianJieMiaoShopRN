@@ -31,8 +31,8 @@ const Index: React.FC<IndexProps> = props => {
     },
   } = props
 
-  // console.log('123-00-0------', JSON.stringify(goodsinfo, null, 2))
-  // console.log('123123-ds-------', JSON.stringify(shopInfo, null, 2))
+  console.log('123-00-0------', JSON.stringify(goodsinfo, null, 2))
+  console.log('123123-ds-------', JSON.stringify(shopInfo, null, 2))
 
   const { endCall, info: liveInfo, BeautyOptions, setBeautyOptions } = useIndex(shopInfo)
   const { endRTM, info: RTMinfo, messages } = useIndexRTM(shopInfo)

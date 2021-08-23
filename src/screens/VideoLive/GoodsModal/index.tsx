@@ -10,11 +10,7 @@ import useIndex from './useIndex'
 interface IndexProps {
   visible: boolean
   setVisible: any
-  // setInfo: any
   info: any
-  // allInfo: any
-  // live_log_uuid: string
-  // goodsArr: any
 }
 const Index: React.FC<IndexProps> = props => {
   const { visible, setVisible, info } = props

@@ -121,6 +121,7 @@ const Index: React.FC<IndexProps> = props => {
         setVisible={setVisibleRecommendGoods}
         info={recomInfo}
         setInfo={setRecomInfo}
+        type={'recom'}
       />
     </View>
   )

@@ -7,7 +7,7 @@ const useIndex = () => {
   useEffect(() => {
     intervalTime.current = setInterval(() => {
       setTimenum(time => ++time)
-      console.log(timenum)
+      // console.log(timenum)
     }, 1000)
 
     return () => {

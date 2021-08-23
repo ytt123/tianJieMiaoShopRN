@@ -111,8 +111,14 @@ const useIndex = () => {
           thum,
           pre_begin_time,
           goods_uuids: info.map((item: any) => item?.order_goods_uuid),
+          recommend_goods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
         },
       })
+
+      console.log('paramsparamsparamsparams', {
+        recommend_goods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
+      })
+
       const shopReadData = await ajax({
         url: url.shopsRead,
         data: {
