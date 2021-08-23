@@ -23,6 +23,7 @@ const useIndex = (shopInfo: any) => {
   const { shop_live_log_info } = shopInfo
   const { uuid } = shop_live_log_info || {}
 
+  console.log('渠道名称--------------------', uuid)
   const [info, setInfo] = useState<any>({
     appId: agoraAppid,
     channelName: uuid,

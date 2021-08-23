@@ -46,7 +46,7 @@ export default function App() {
           },
         }}
       >
-        <Stack.Screen
+        {/* <Stack.Screen
           name={'test'}
           component={PublishVideo}
           options={
@@ -54,7 +54,7 @@ export default function App() {
               // headerShown: false,
             }
           }
-        />
+        /> */}
         <Stack.Screen
           name={mainScreenConfig.TabNavigator.name}
           component={TabNavigator}

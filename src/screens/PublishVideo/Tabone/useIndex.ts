@@ -9,7 +9,7 @@ import { showImagePicker } from '../../../utils/fs/imageSelect'
 import useUser from '../../../utils/hooks/useUser'
 import { LiveReviewStatus, ShopUserType } from '../../../constants/live.constants'
 import { grshow } from '../../../utils/grToast'
-import { shopInfo, goodsinfo } from './mockData'
+// import { shopInfo, goodsinfo } from './mockData'
 const useIndex = () => {
   const [isFormal, setIsFormal] = useState<any>(false)
   const navigation = useNavigation()
@@ -37,15 +37,14 @@ const useIndex = () => {
   }, [shopUuid, spinningChange])
 
   const submit = useCallback(async () => {
-    // const routeurl = isFormal ? mainScreenConfig.VideoLive.name : mainScreenConfig.TryVideoLive.name
-    navigate(mainScreenConfig.VideoLive.name, {
-      shopInfo,
-      goodsinfo,
-      isFormal,
-    })
+    // // const routeurl = isFormal ? mainScreenConfig.VideoLive.name : mainScreenConfig.TryVideoLive.name
+    // navigate(mainScreenConfig.VideoLive.name, {
+    //   shopInfo,
+    //   goodsinfo,
+    //   isFormal,
+    // })
 
-    /**
-  // if (isFormal) {
+    // if (isFormal) {
     if (!title) {
       grshow('请输入直播标题')
       return
@@ -122,10 +121,10 @@ const useIndex = () => {
       })
       spinningChange(false)
 
-      const routeurl = isFormal
-        ? mainScreenConfig.VideoLive.name
-        : mainScreenConfig.TryVideoLive.name
-      navigate(routeurl, {
+      // const routeurl = isFormal
+      //   ? mainScreenConfig.VideoLive.name
+      //   : mainScreenConfig.TryVideoLive.name
+      navigate(mainScreenConfig.VideoLive.name, {
         shopInfo: shopReadData?.data,
         goodsinfo: {
           title,
@@ -135,6 +134,7 @@ const useIndex = () => {
           recomgoods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
           recomgoods: recomInfo,
         },
+        isFormal,
       })
     } catch (err) {
       spinningChange(false)
@@ -143,8 +143,20 @@ const useIndex = () => {
     //  else {
     //   navigate(mainScreenConfig.TryVideoLive.name, {})
     // }
-     */
-  }, [isFormal, navigate])
+  }, [
+    agentUuid,
+    info,
+    isFormal,
+    isPredictLive,
+    navigate,
+    pre_begin_time,
+    predictTime,
+    recomInfo,
+    spinningChange,
+    thum,
+    title,
+    user_type,
+  ])
 
   return {
     submit,

@@ -15,10 +15,11 @@ interface IndexProps {
   info: any
   recomgoods: any
   showrecomcb: any
+  isGestureShow: any
 }
 
 const Index: React.FC<IndexProps> = props => {
-  const { closecb, attencb, info, recomgoods = [], showrecomcb } = props
+  const { closecb, attencb, info, recomgoods = [], showrecomcb, isGestureShow } = props
   const { top } = useSafeAreaInsets()
 
   const { name, thum } = info || {}
@@ -39,20 +40,24 @@ const Index: React.FC<IndexProps> = props => {
         </TouchableThrottle> */}
       </View>
 
-      <TouchableThrottle onPress={() => {}} style={style.addright}>
-        {/* <Iconfont iconfont={'\ue624'} style={style.cancelText} /> */}
-        <View style={style.pointText} />
-        <Text style={{ color: '#fff' }}>
-          {hourStr}:{minStr}:{secStr}
-        </Text>
-      </TouchableThrottle>
+      {isGestureShow && (
+        <TouchableThrottle onPress={() => {}} style={style.addright}>
+          {/* <Iconfont iconfont={'\ue624'} style={style.cancelText} /> */}
+          <View style={style.pointText} />
+          <Text style={{ color: '#fff' }}>
+            {hourStr}:{minStr}:{secStr}
+          </Text>
+        </TouchableThrottle>
+      )}
 
-      <TouchableThrottle style={style.recomgoods} onPress={showrecomcb}>
-        <Image source={{ uri: firstimg }} style={{ width: '100%', height: '100%' }} />
-        <View style={style.recom}>
-          <Text style={style.recomText}>推荐</Text>
-        </View>
-      </TouchableThrottle>
+      {isGestureShow && (
+        <TouchableThrottle style={style.recomgoods} onPress={showrecomcb}>
+          <Image source={{ uri: firstimg }} style={{ width: '100%', height: '100%' }} />
+          <View style={style.recom}>
+            <Text style={style.recomText}>推荐</Text>
+          </View>
+        </TouchableThrottle>
+      )}
     </View>
   )
 }

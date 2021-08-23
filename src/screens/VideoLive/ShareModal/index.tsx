@@ -15,10 +15,9 @@ interface IndexProps {
   visible: boolean
   setVisible: any
   info: any
-  allInfo: any
 }
 const Index: React.FC<IndexProps> = props => {
-  const { visible, setVisible, info, allInfo } = props
+  const { visible, setVisible, info } = props
 
   return (
     <View style={style.wrapper}>
