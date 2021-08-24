@@ -2,11 +2,10 @@ import React from 'react'
 import { View, Text, Image } from 'react-native'
 import styles from './style'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import useUser from '../../../utils/hooks/useUser'
 
 import style from './style'
 import { defaultIcon } from '../../../assets/images'
-import { TouchableThrottle, Iconfont } from '../../../components'
+import { TouchableThrottle } from '../../../components'
 import useIndex from './useIndex'
 
 interface IndexProps {
@@ -16,14 +15,14 @@ interface IndexProps {
   recomgoods: any
   showrecomcb: any
   isGestureShow: any
+  seeNum?: any
 }
 
 const Index: React.FC<IndexProps> = props => {
-  const { closecb, attencb, info, recomgoods = [], showrecomcb, isGestureShow } = props
+  const { info, recomgoods = [], showrecomcb, isGestureShow, seeNum = 0 } = props
   const { top } = useSafeAreaInsets()
-
   const { name, thum } = info || {}
-
+  // console.log('peers------', seeNum)
   //取第一张图
   const firstimg = recomgoods[0]?.thum || ''
   const { hourStr, minStr, secStr } = useIndex()
@@ -33,16 +32,12 @@ const Index: React.FC<IndexProps> = props => {
         <Image source={{ uri: thum ? thum : defaultIcon }} style={styles.icon} />
         <View style={style.leftcenter}>
           <Text style={styles.nameText}>{name}</Text>
-          <Text style={styles.nameText}>1人观看 | 0人点赞</Text>
+          <Text style={styles.nameText}>{seeNum}人观看 | 0人点赞</Text>
         </View>
-        {/* <TouchableThrottle onPress={attencb}>
-          <Text style={styles.attenText}>关注</Text>
-        </TouchableThrottle> */}
       </View>
 
       {isGestureShow && (
         <TouchableThrottle onPress={() => {}} style={style.addright}>
-          {/* <Iconfont iconfont={'\ue624'} style={style.cancelText} /> */}
           <View style={style.pointText} />
           <Text style={{ color: '#fff' }}>
             {hourStr}:{minStr}:{secStr}

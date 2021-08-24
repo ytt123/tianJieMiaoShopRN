@@ -1,5 +1,5 @@
 PODS:
-  - agora-react-native-rtm (1.2.2-alpha.3):
+  - agora-react-native-rtm (1.2.2-alpha.6):
     - AgoraRtm_iOS (= 1.2.2)
     - React
   - AgoraRtcEngine_iOS (3.2.1)
@@ -568,7 +568,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  agora-react-native-rtm: e17d4992e3af6868985066b1bd87ae440cbf2d91
+  agora-react-native-rtm: 4f9761d282e2ac9b4f7230ceb653fdcec20e485f
   AgoraRtcEngine_iOS: bf8ee53108d31dd9e3b7e448701b9098162c42c7
   AgoraRtm_iOS: c6ba986a3af73dd0f02e6e2995ae4fe9c155e6ae
   AMapFoundation: b67560a6f21aab81c8c12f84616b55a3833b6253

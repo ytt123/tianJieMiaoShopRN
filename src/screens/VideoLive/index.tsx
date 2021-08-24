@@ -4,19 +4,15 @@ import styles from './style'
 import useIndex from './useIndex'
 import { RtcLocalView, RtcRemoteView, VideoRenderMode } from 'react-native-agora'
 import { useNavigation } from '@react-navigation/native'
-
 import Avatar from './Avatar'
-import Btn from './Btn'
 import GoodsModal from './GoodsModal'
-import ReportModal from './ReportModal'
 import ShareModal from './ShareModal'
 import Speak from './Speak'
 import useIndexRTM from './useIndexRTM'
 import useIndexGoods from './useIndexGoods'
-import AdjustView from './AdjustView'
 import AdjustModal from './AdjustModal'
 import Function from './Function'
-import { goodsinfo, shopInfo } from './mockData'
+// import { goodsinfo, shopInfo } from './mockData'
 import Bom from './Bom'
 import Top from './Top'
 
@@ -31,9 +27,6 @@ const Index: React.FC<IndexProps> = props => {
     },
   } = props
 
-  console.log('123-00-0------', JSON.stringify(goodsinfo, null, 2))
-  console.log('123123-ds-------', JSON.stringify(shopInfo, null, 2))
-
   const { endCall, info: liveInfo, BeautyOptions, setBeautyOptions } = useIndex(shopInfo)
   const { endRTM, info: RTMinfo, messages } = useIndexRTM(shopInfo)
   const {
@@ -41,8 +34,6 @@ const Index: React.FC<IndexProps> = props => {
     setVisibleGoods,
     info,
     recominfo,
-    visibleAdjust,
-    setVisibleAdjust,
     visibleRecomGoods,
     sertVisibleRecomGoods,
   } = useIndexGoods(goodsinfo)
@@ -50,50 +41,19 @@ const Index: React.FC<IndexProps> = props => {
   const { goBack } = useNavigation()
 
   const [showShare, setShowShare] = useState<boolean>(false)
-  const [showReport, setShowReport] = useState<boolean>(false)
   const [showBeauty, setShowBeauty] = useState<boolean>(false)
 
   /* ---------------------------------------------以下试播 start--------------------------------------------------- */
   const [isTry, setTry] = useState<boolean>(!isFormal)
-
   /* ---------------------------------------------试播 end--------------------------------------------------- */
   const [isShow, setIsShow] = useState<boolean>(true)
   const panResponder = useRef(
     PanResponder.create({
-      // onStartShouldSetPanResponder: (e, gestureState) => false,
-      // onStartShouldSetPanResponderCapture: (e, gestureState) => false,
-
       onMoveShouldSetPanResponder: (_, gestureState) => {
         return !(gestureState.dx === 0 && gestureState.dy === 0)
       },
-
-      // onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: (event, gestureState) => {
-        console.log(
-          'onPanResponderGrant_gestureState',
-          gestureState.dx,
-          gestureState.dx,
-          gestureState.moveX,
-          gestureState.moveY,
-        )
-
-        // listRef.current && listRef.current.scrollEnabled(false)
-        // console.log('pan.x._value', pan.x._value)
-        // pan.setOffset({
-        //   x: pan.x._value,
-        //   y: pan.y._value,
-        // })
-      },
+      onPanResponderGrant: (event, gestureState) => {},
       onPanResponderMove: (event, gestureState) => {
-        // console.log('onPanResponderMove_gestureState', gestureState)
-
-        console.log(
-          'onPanResponderMove_gestureState',
-          gestureState.dx,
-          gestureState.dx,
-          gestureState.moveX,
-          gestureState.moveY,
-        )
         if (gestureState.dx > 100) {
           //清屏
           setIsShow(false)
@@ -104,7 +64,6 @@ const Index: React.FC<IndexProps> = props => {
         }
       },
       onPanResponderRelease: () => true,
-      // onShouldBlockNativeResponder: () => false,
       onPanResponderTerminationRequest: () => true,
     }),
   ).current
@@ -149,6 +108,7 @@ const Index: React.FC<IndexProps> = props => {
       {/* ---------------------------------------------以下直播--------------------------------------------------- */}
       {!isTry && (
         <Avatar
+          seeNum={peerIds?.length}
           info={shopInfo}
           recomgoods={goodsinfo?.recomgoods}
           showrecomcb={() => {
@@ -157,14 +117,6 @@ const Index: React.FC<IndexProps> = props => {
           isGestureShow={isGestureShow}
         />
       )}
-
-      {/* <Btn
-        setVisibleAdjust={setVisibleAdjust}
-        add={() => setVisibleGoods(true)}
-        close={() => {
-
-        }}
-      /> */}
 
       {/* 消息 */}
       {isGestureShow && <Speak messages={messages} />}
@@ -187,7 +139,6 @@ const Index: React.FC<IndexProps> = props => {
         <ShareModal visible={showShare} setVisible={setShowShare} info={shopInfo} />
       )}
 
-      {/* <ReportModal visible={showReport} setVisible={setShowReport} info={shopInfo} /> */}
       <AdjustModal
         visible={showBeauty}
         setVisible={setShowBeauty}
@@ -216,15 +167,6 @@ const Index: React.FC<IndexProps> = props => {
           }}
         />
       )}
-
-      {/* <AdjustView
-        visible={visibleAdjust}
-        setVisible={setVisibleAdjust}
-        BeautyOptions={BeautyOptions}
-        setBeautyOptions={setBeautyOptions}
-        isOpenBeauty={isOpenBeauty}
-        setIsOpenBeauty={setIsOpenBeauty}
-      /> */}
     </View>
   )
 }

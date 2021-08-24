@@ -9,49 +9,54 @@ const useIndex = (shopInfo: any) => {
   const { shop_live_log_info } = shopInfo
   const { uuid } = shop_live_log_info || {}
   console.log('rtm需要的uuid', uuid)
+
   const [info, setInfo] = useState<any>({
-    appId: agoraAppid,
-    channelName: uuid,
+    // appId: agoraAppid,
+    // channelName: uuid,
     joinSucceed: false,
     peerIds: [],
     uid: null,
   })
+
+  const [appId] = useState(agoraAppid)
+  const [channelName] = useState(uuid)
+
   const [messages, setMessages] = useState<any[]>([])
 
   const engine = useRef<any>(null)
 
   const init = useCallback(async () => {
-    const { appId, channelName } = info
+    // const { appId, channelName } = info
 
     engine.current = new RtmEngine()
 
-    var ee = new EventEmitter()
-    const events = [
-      'tokenExpired',
-      'remoteInvitationRefused',
-      'remoteInvitationFailure',
-      'remoteInvitationCanceled',
-      'remoteInvitationAccepted',
-      'messageReceived',
-      'localInvitationRefused',
-      'localInvitationReceivedByPeer',
-      'localInvitationFailure',
-      'localInvitationCanceled',
-      'localInvitationAccepted',
-      'error',
-      'connectionStateChanged',
-      'channelMessageReceived',
-      'channelMemberLeft',
-      'channelMemberJoined',
-      'remoteInvitationReceived',
-    ]
-    events.forEach((event: string) => {
-      // @ts-ignore
-      engine.current.on(event, (evt: any) => {
-        // console.warn('各类通知-------', event, evt)
-        ee.emit(event, evt)
-      })
-    })
+    // var ee = new EventEmitter()
+    // const events = [
+    //   'tokenExpired',
+    //   'remoteInvitationRefused',
+    //   'remoteInvitationFailure',
+    //   'remoteInvitationCanceled',
+    //   'remoteInvitationAccepted',
+    //   'messageReceived',
+    //   'localInvitationRefused',
+    //   'localInvitationReceivedByPeer',
+    //   'localInvitationFailure',
+    //   'localInvitationCanceled',
+    //   'localInvitationAccepted',
+    //   'error',
+    //   'connectionStateChanged',
+    //   'channelMessageReceived',
+    //   'channelMemberLeft',
+    //   'channelMemberJoined',
+    //   'remoteInvitationReceived',
+    // ]
+    // events.forEach((event: string) => {
+    //   // @ts-ignore
+    //   engine.current.on(event, (evt: any) => {
+    //     console.warn('各类通知-------', event, evt)
+    //     ee.emit(event, evt)
+    //   })
+    // })
 
     await engine.current.createClient(appId)
     let time = `${+new Date()}`
@@ -59,6 +64,8 @@ const useIndex = (shopInfo: any) => {
 
     await setInfo((pre: any) => ({
       ...pre,
+      appId,
+      channelName,
       uid: time,
     }))
 
@@ -70,7 +77,7 @@ const useIndex = (shopInfo: any) => {
 
     engine.current.on('channelMessageReceived', (evt: any) => {
       const { uid, channelId, text } = evt
-      // console.log('获取到的信息', JSON.stringify(evt, null, 2))
+      console.log('获取到的信息', JSON.stringify(evt, null, 2))
       if (channelId === channelName) {
         setMessages(prevState =>
           GiftedChat.append(prevState, [
@@ -87,17 +94,17 @@ const useIndex = (shopInfo: any) => {
         )
       }
     })
-  }, [info])
+  }, [appId, channelName])
 
   const endRTM = useCallback(async () => {
-    const { channelName } = info
+    // const { channelName } = info
     await engine.current.leaveChannel(channelName)
     await engine.current.logout()
     await engine.current.destroy()
-  }, [info])
+  }, [channelName])
   useEffect(() => {
-    // init()
-  }, [])
+    init()
+  }, [init])
 
   return { endRTM, info, setInfo, messages }
 }

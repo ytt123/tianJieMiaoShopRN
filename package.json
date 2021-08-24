@@ -29,7 +29,7 @@
     "@types/jest": "^26.0.15",
     "@types/react-native": "^0.63.29",
     "@types/react-redux": "^7.1.9",
-    "agora-react-native-rtm": "^1.2.2-alpha.3",
+    "agora-react-native-rtm": "^1.2.2-alpha.4",
     "axios": "^0.20.0",
     "blueimp-md5": "^2.18.0",
     "events": "^3.3.0",

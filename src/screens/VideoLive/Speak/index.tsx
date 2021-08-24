@@ -17,6 +17,10 @@ const Index: React.FC<IndexProps> = props => {
           .map((item, index) => {
             const { text, user } = item
             const { name } = user || {}
+
+            // const tarr = text.split(' ')
+            // const name1 = tarr[0] || ''
+            // const des1 = tarr[1] || ''
             return <Text key={index}>{text}</Text>
           })}
       </ScrollView>
