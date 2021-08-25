@@ -15,7 +15,7 @@ const Index: React.FC<IndexProps> = props => {
   const { visible, setVisible, beautyOptions, setBeautyOptions } = props
   const [chooseIndex, setChooseIndex] = useState<number>(0)
   const { bottom } = useSafeAreaInsets()
-  console.log('beautyOptionsbeautyOptionsbeautyOptions', beautyOptions)
+  // console.log('beautyOptionsbeautyOptionsbeautyOptions', beautyOptions)
   return (
     <View style={style.wrapper}>
       <Modal

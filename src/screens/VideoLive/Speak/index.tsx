@@ -19,6 +19,10 @@ const Index: React.FC<IndexProps> = props => {
         ref={CarouselRef}
         data={messages}
         showsVerticalScrollIndicator={false}
+        onContentSizeChange={() => {
+          //适配安卓
+          CarouselRef && CarouselRef.current.scrollToEnd()
+        }}
         keyExtractor={(item, index) => String(item?.createdAt)}
         renderItem={({ item, index }) => {
           const { text, user } = item

@@ -1,5 +1,13 @@
 import React, { useState, useRef, useCallback } from 'react'
-import { View, TouchableOpacity, ScrollView, SafeAreaView, Image, PanResponder } from 'react-native'
+import {
+  View,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+  Image,
+  PanResponder,
+  Keyboard,
+} from 'react-native'
 import styles from './style'
 import useIndex from './useIndex'
 import { RtcLocalView, RtcRemoteView, VideoRenderMode } from 'react-native-agora'
@@ -54,6 +62,8 @@ const Index: React.FC<IndexProps> = props => {
       },
       onPanResponderGrant: (event, gestureState) => {},
       onPanResponderMove: (event, gestureState) => {
+        Keyboard.dismiss()
+        console.log(1231213, gestureState)
         if (gestureState.dx > 100) {
           //清屏
           setIsShow(false)
@@ -180,7 +190,13 @@ const Index: React.FC<IndexProps> = props => {
       )}
 
       {isGestureShow && (
-        <VideoReply onSend={onSend} uid={uid} showKb={showKb} setShowKb={setShowKb} />
+        <VideoReply
+          onSend={onSend}
+          uid={uid}
+          showKb={showKb}
+          setShowKb={setShowKb}
+          info={shopInfo}
+        />
       )}
     </View>
   )

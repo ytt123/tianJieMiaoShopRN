@@ -8,7 +8,7 @@ import { agoraAppid } from '../../constants/agora.config'
 const useIndex = (shopInfo: any) => {
   const { shop_live_log_info } = shopInfo
   const { uuid } = shop_live_log_info || {}
-  console.log('rtm需要的uuid', uuid)
+  // console.log('rtm需要的uuid', uuid)
 
   const [info, setInfo] = useState<any>({
     // appId: agoraAppid,
@@ -133,6 +133,9 @@ const useIndex = (shopInfo: any) => {
   }, [channelName])
   useEffect(() => {
     init()
+    return () => {
+      console.log('退出rtm')
+    }
   }, [init])
 
   return { endRTM, info, setInfo, messages, onSend }

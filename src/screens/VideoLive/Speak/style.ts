@@ -3,7 +3,7 @@ import { StyleSheet, Platform } from 'react-native'
 const isIOS = Platform.OS === 'ios'
 export default StyleSheet.create({
   max: {
-    width: 200,
+    // width: 220,
     height: 200,
     position: 'absolute',
     bottom: 200,
@@ -42,5 +42,7 @@ export default StyleSheet.create({
     borderTopRightRadius: 4,
     borderBottomRightRadius: 4,
     overflow: 'hidden',
+    // flex: 1,
+    // marginRight: 10,
   },
 })

@@ -2,7 +2,7 @@ import { useCallback, useState, useEffect, useRef } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import RtcEngine, { ChannelProfile, ClientRole } from 'react-native-agora'
 import requestCameraAndAudioPermission from './VideoPermission'
-import { Platform } from 'react-native'
+import { Platform, BackHandler } from 'react-native'
 import { agoraAppid } from '../../constants/agora.config'
 import useSpinner from '../../utils/hooks/useSpinner'
 import { ajax, url } from '../../api'
@@ -23,7 +23,7 @@ const useIndex = (shopInfo: any) => {
   const { shop_live_log_info } = shopInfo
   const { uuid } = shop_live_log_info || {}
 
-  console.log('渠道名称--------------------', uuid)
+  // console.log('渠道名称--------------------', uuid)
   const [info, setInfo] = useState<any>({
     appId: agoraAppid,
     channelName: uuid,
@@ -35,6 +35,7 @@ const useIndex = (shopInfo: any) => {
   const { goBack } = useNavigation()
   const { spinningChange } = useSpinner()
   const init = useCallback(async () => {
+    console.log('init')
     const { appId } = info
     engine.current = await RtcEngine.create(appId)
     await engine.current.enableVideo()
@@ -130,7 +131,19 @@ const useIndex = (shopInfo: any) => {
         init()
       }, 1000)
     }
+    return () => {
+      console.log('退出rtc')
+    }
   }, [goBack, init])
+
+  //处理安卓返回
+  const backAction = useCallback(() => {
+    return true
+  }, [])
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => BackHandler.removeEventListener('hardwareBackPress', backAction)
+  }, [backAction])
 
   return {
     startCall,

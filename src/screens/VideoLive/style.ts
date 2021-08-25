@@ -1,10 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native'
 
-const dimensions = {
-  width: Dimensions.get('window').width,
-  height: Dimensions.get('window').height,
-}
-
+const { width, height } = Dimensions.get('screen')
 export default StyleSheet.create({
   max: {
     flex: 1,
@@ -28,8 +24,8 @@ export default StyleSheet.create({
     color: '#fff',
   },
   fullView: {
-    width: dimensions.width,
-    height: dimensions.height,
+    width,
+    height,
   },
   remoteContainer: {
     width: '100%',
@@ -50,7 +46,7 @@ export default StyleSheet.create({
   bom: {
     position: 'absolute',
     bottom: 30,
-    left: (dimensions.width - 45) / 2,
+    left: (width - 45) / 2,
   },
   icon: {
     height: 45,

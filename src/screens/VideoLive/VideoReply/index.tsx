@@ -1,53 +1,115 @@
-import React, { useRef, useEffect } from 'react'
-import { TextInput, KeyboardAvoidingView } from 'react-native'
+import React, { useRef, useEffect, useCallback, useState } from 'react'
+import { TextInput, KeyboardAvoidingView, Platform, Keyboard, View } from 'react-native'
 import style from './style'
-import useUser from '../../../utils/hooks/useUser'
+
 interface IndexProps {
   onSend: any
   uid: any
   showKb: boolean
   setShowKb: any
+  info: any
 }
 const Index: React.FC<IndexProps> = props => {
-  const { onSend, uid, showKb, setShowKb } = props
+  const { onSend, uid, showKb, setShowKb, info = {} } = props
   const textinputRef = useRef<any>(null)
-  const { userInfo } = useUser()
-  const { nick_name } = userInfo.toJS() || {}
+  const { name } = info
+
+  const [hh, sethh] = useState(400)
   useEffect(() => {
     showKb && textinputRef.current.focus()
   }, [showKb])
+
+  const _keyboardDidShow = useCallback(e => {
+    sethh(e.endCoordinates.height)
+  }, [])
+
+  useEffect(() => {
+    let keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow)
+
+    return () => {
+      keyboardDidShowListener.remove()
+    }
+  }, [_keyboardDidShow])
+
   return (
-    <KeyboardAvoidingView enabled={true} behavior={'padding'}>
-      <TextInput
-        style={[style.input, { height: showKb ? 44 : 0 }]}
-        placeholder="说点什么…"
-        onBlur={() => {
-          setShowKb(false)
-        }}
-        onEndEditing={event => {
-          const text = event.nativeEvent.text.trim()
-          if (text.length > 0) {
-            onSend([
+    <>
+      {Platform.OS === 'ios' ? (
+        <KeyboardAvoidingView enabled={true} behavior={'padding'}>
+          <TextInput
+            style={[
+              style.input,
               {
-                _id: +new Date(),
-                text: nick_name.slice(0, 5) + '  ' + text,
-                user: {
-                  _id: uid,
-                  name: nick_name,
-                },
-                createdAt: new Date(),
+                height: showKb ? 44 : 0,
               },
-            ])
-            textinputRef.current.clear()
-          }
-        }}
-        maxLength={20}
-        ref={textinputRef}
-        returnKeyType={'send'}
-        returnKeyLabel={'发送'}
-        placeholderTextColor={'#999'}
-      />
-    </KeyboardAvoidingView>
+            ]}
+            placeholder="说点什么…"
+            onBlur={() => {
+              setShowKb(false)
+            }}
+            onEndEditing={event => {
+              const text = event.nativeEvent.text.trim()
+              if (text.length > 0) {
+                onSend([
+                  {
+                    _id: +new Date(),
+                    text: name.slice(0, 6) + '  ' + text,
+                    user: {
+                      _id: uid,
+                      name: name,
+                    },
+                    createdAt: new Date(),
+                  },
+                ])
+                textinputRef.current.clear()
+              }
+            }}
+            maxLength={20}
+            ref={textinputRef}
+            returnKeyType={'send'}
+            returnKeyLabel={'发送'}
+            placeholderTextColor={'#999'}
+          />
+        </KeyboardAvoidingView>
+      ) : (
+        <View style={{ opacity: showKb ? 1 : 0 }}>
+          <TextInput
+            style={[
+              style.input,
+              { bottom: hh },
+              {
+                height: showKb ? 44 : 0,
+              },
+            ]}
+            placeholder="说点什么… "
+            onBlur={() => {
+              setShowKb(false)
+            }}
+            onEndEditing={event => {
+              const text = event.nativeEvent.text.trim()
+              if (text.length > 0) {
+                onSend([
+                  {
+                    _id: +new Date(),
+                    text: name.slice(0, 6) + '  ' + text,
+                    user: {
+                      _id: uid,
+                      name,
+                    },
+                    createdAt: new Date(),
+                  },
+                ])
+                textinputRef.current.clear()
+              }
+            }}
+            maxLength={20}
+            ref={textinputRef}
+            returnKeyType={'send'}
+            returnKeyLabel={'发送'}
+            placeholderTextColor={'#999'}
+          />
+        </View>
+      )}
+    </>
   )
 }
 

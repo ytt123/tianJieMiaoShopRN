@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-
+import { StyleSheet, Platform } from 'react-native'
+const isIos = Platform.OS === 'ios'
 const style = StyleSheet.create({
   wrapper: {
     position: 'absolute',
@@ -34,6 +34,15 @@ const style = StyleSheet.create({
   input: {
     paddingHorizontal: 16,
     backgroundColor: '#fff',
+    ...Platform.select({
+      ios: {},
+      android: {
+        position: 'absolute',
+        bottom: isIos ? 0 : 400,
+        left: 0,
+        right: 0,
+      },
+    }),
   },
   img: {
     height: 30,

@@ -29,6 +29,7 @@ const Index: React.FC<IndexProps> = props => {
               backgroundColor: '#fff',
               width: 60,
               textAlign: 'center',
+              borderRadius: 5,
             }}
           >
             {goodsNum}件商品
