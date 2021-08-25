@@ -23,17 +23,28 @@ const useIndex = (shopInfo: any) => {
   const { shop_live_log_info } = shopInfo
   const { uuid } = shop_live_log_info || {}
 
-  // console.log('渠道名称--------------------', uuid)
   const [info, setInfo] = useState<any>({
     appId: agoraAppid,
     channelName: uuid,
     joinSucceed: false,
     peerIds: [],
   })
-  const [isOpenBeauty, setIsOpenBeauty] = useState(true)
+
   const engine = useRef<any>(null)
   const { goBack } = useNavigation()
   const { spinningChange } = useSpinner()
+
+  // const [info, setInfo] = useState<any>({
+  //   appId: agoraAppid,
+  //   channelName: uuid,
+  //   joinSucceed: false,
+  //   peerIds: [],
+  // })
+
+  /**------------------------------------------------------------  打印-------------------------------------------------------------------- */
+  // console.log('渠道名称--------------------', uuid)
+
+  console.log('BeautyOptions', BeautyOptions)
   const init = useCallback(async () => {
     console.log('init')
     const { appId } = info
@@ -47,7 +58,7 @@ const useIndex = (shopInfo: any) => {
     await engine.current.setClientRole(ClientRole.Broadcaster)
     await engine?.current?.joinChannel(null, info.channelName, null, 0)
 
-    await engine.current.setBeautyEffectOptions(isOpenBeauty, BeautyOptions)
+    await engine.current.setBeautyEffectOptions(true, BeautyOptions)
 
     engine.current.addListener('UserJoined', (uid: any, elapsed: any) => {
       console.log('我自己的uid---------', uid)
@@ -78,7 +89,7 @@ const useIndex = (shopInfo: any) => {
         joinSucceed: true,
       }))
     })
-  }, [BeautyOptions, info, isOpenBeauty])
+  }, [BeautyOptions, info])
 
   /**
    * @name startCall
@@ -152,8 +163,6 @@ const useIndex = (shopInfo: any) => {
     setInfo,
     BeautyOptions,
     setBeautyOptions,
-    isOpenBeauty,
-    setIsOpenBeauty,
   }
 }
 

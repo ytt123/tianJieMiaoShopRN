@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import { btnPrimaryColor, color000, color999 } from '../../../config/style.config'
-
-const wid = 350
+const isIOS = Platform.OS === 'ios'
+const wid = isIOS ? 350 : 300
 const hei = (wid * 692) / 610
 const style = StyleSheet.create({
   wrapper: {},

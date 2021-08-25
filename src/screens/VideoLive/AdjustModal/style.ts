@@ -37,7 +37,7 @@ const style = StyleSheet.create({
     width: '100%',
     height: 40,
     position: 'absolute',
-    bottom: 300,
+    bottom: 150,
     paddingHorizontal: 20,
   },
 })

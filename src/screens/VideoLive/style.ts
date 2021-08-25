@@ -4,8 +4,8 @@ const { width, height } = Dimensions.get('screen')
 export default StyleSheet.create({
   max: {
     flex: 1,
-    // backgroundColor: '#f4f4f4',
-    backgroundColor: 'green',
+    backgroundColor: '#f4f4f4',
+    // backgroundColor: 'green',
   },
   buttonHolder: {
     height: 100,

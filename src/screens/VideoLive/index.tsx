@@ -1,16 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react'
-import {
-  View,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  Image,
-  PanResponder,
-  Keyboard,
-} from 'react-native'
+import { View, PanResponder, Keyboard } from 'react-native'
 import styles from './style'
 import useIndex from './useIndex'
-import { RtcLocalView, RtcRemoteView, VideoRenderMode } from 'react-native-agora'
+import { RtcLocalView, VideoRenderMode } from 'react-native-agora'
 import { useNavigation } from '@react-navigation/native'
 import Avatar from './Avatar'
 import GoodsModal from './GoodsModal'
@@ -20,7 +12,7 @@ import useIndexRTM from './useIndexRTM'
 import useIndexGoods from './useIndexGoods'
 import AdjustModal from './AdjustModal'
 import Function from './Function'
-// import { goodsinfo, shopInfo } from './mockData'
+
 import Bom from './Bom'
 import Top from './Top'
 import VideoReply from './VideoReply'
@@ -37,8 +29,7 @@ const Index: React.FC<IndexProps> = props => {
   } = props
 
   const { endCall, info: liveInfo, BeautyOptions, setBeautyOptions } = useIndex(shopInfo)
-  const { endRTM, info: RTMinfo, messages, onSend } = useIndexRTM(shopInfo)
-  const { uid } = RTMinfo
+  const { endRTM, uid, messages, onSend } = useIndexRTM(shopInfo)
 
   const {
     visibleGoods,

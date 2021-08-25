@@ -37,6 +37,7 @@ const style = StyleSheet.create({
     ...Platform.select({
       ios: {},
       android: {
+        // backgroundColor: 'red',
         position: 'absolute',
         bottom: isIos ? 0 : 400,
         left: 0,

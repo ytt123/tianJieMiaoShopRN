@@ -22,14 +22,18 @@ const Index: React.FC<IndexProps> = props => {
   const _keyboardDidShow = useCallback(e => {
     sethh(e.endCoordinates.height)
   }, [])
-
+  const _keyboardDidHiden = useCallback(() => {
+    // sethh(2000)
+    console.log('键盘消失')
+  }, [])
   useEffect(() => {
     let keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow)
-
+    let keyboardDidHidenListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHiden)
     return () => {
       keyboardDidShowListener.remove()
+      keyboardDidHidenListener.remove()
     }
-  }, [_keyboardDidShow])
+  }, [_keyboardDidHiden, _keyboardDidShow])
 
   return (
     <>
