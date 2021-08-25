@@ -30,4 +30,13 @@ export default StyleSheet.create({
     marginTop: 3,
     color: '#fff',
   },
+  inputText: {
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    lineHeight: 44,
+    borderRadius: 22,
+    overflow: 'hidden',
+    paddingLeft: 20,
+    fontSize: 14,
+    color: '#fff',
+  },
 })

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Image, Text } from 'react-native'
 import styles from './style'
-import { TouchableThrottle, Iconfont } from '../../../components'
+import { TouchableThrottle, Iconfont, Touchable } from '../../../components'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 interface IndexProps {
   showGoodscb?: any
@@ -10,13 +10,14 @@ interface IndexProps {
   zancb?: any
   closecb?: any
   goodsNum: number
+  showcb: any
 }
 
 const Index: React.FC<IndexProps> = props => {
-  const { showGoodscb, reportcb, sharecb, closecb, goodsNum } = props
+  const { showGoodscb, reportcb, sharecb, closecb, goodsNum, showcb } = props
   const { bottom } = useSafeAreaInsets()
   return (
-    <View style={[styles.btnWrapper, { bottom: bottom + 44 }]}>
+    <View style={[styles.btnWrapper, { bottom: bottom > 20 ? bottom : 30 }]}>
       <TouchableThrottle onPress={showGoodscb}>
         <Image source={require('./assets/shopcart.png')} style={styles.icon} />
         <View style={{ position: 'absolute', top: -25 }}>
@@ -35,7 +36,11 @@ const Index: React.FC<IndexProps> = props => {
         </View>
       </TouchableThrottle>
 
-      <View style={styles.bomcenter}>{/* <Text>xxxxx</Text> */}</View>
+      <View style={styles.bomcenter}>
+        <Touchable onPress={showcb}>
+          <Text style={styles.inputText}>说点什么…</Text>
+        </Touchable>
+      </View>
       <TouchableThrottle style={styles.rightitem} onPress={reportcb}>
         <Iconfont iconfont={'\ue62c'} style={styles.iconText} />
         <Text style={styles.rightText}>美颜</Text>

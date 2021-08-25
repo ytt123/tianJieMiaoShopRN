@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { View, TouchableOpacity, ScrollView, SafeAreaView, Image, PanResponder } from 'react-native'
 import styles from './style'
 import useIndex from './useIndex'
@@ -15,6 +15,7 @@ import Function from './Function'
 // import { goodsinfo, shopInfo } from './mockData'
 import Bom from './Bom'
 import Top from './Top'
+import VideoReply from './VideoReply'
 
 interface IndexProps {
   route: { params: { goodsinfo: any; shopInfo: any; isFormal: boolean } }
@@ -28,7 +29,9 @@ const Index: React.FC<IndexProps> = props => {
   } = props
 
   const { endCall, info: liveInfo, BeautyOptions, setBeautyOptions } = useIndex(shopInfo)
-  const { endRTM, info: RTMinfo, messages } = useIndexRTM(shopInfo)
+  const { endRTM, info: RTMinfo, messages, onSend } = useIndexRTM(shopInfo)
+  const { uid } = RTMinfo
+
   const {
     visibleGoods,
     setVisibleGoods,
@@ -43,9 +46,6 @@ const Index: React.FC<IndexProps> = props => {
   const [showShare, setShowShare] = useState<boolean>(false)
   const [showBeauty, setShowBeauty] = useState<boolean>(false)
 
-  /* ---------------------------------------------以下试播 start--------------------------------------------------- */
-  const [isTry, setTry] = useState<boolean>(!isFormal)
-  /* ---------------------------------------------试播 end--------------------------------------------------- */
   const [isShow, setIsShow] = useState<boolean>(true)
   const panResponder = useRef(
     PanResponder.create({
@@ -68,7 +68,17 @@ const Index: React.FC<IndexProps> = props => {
     }),
   ).current
 
+  /* ---------------------------------------------以下试播 start--------------------------------------------------- */
+  const [isTry, setTry] = useState<boolean>(!isFormal)
+  /* ---------------------------------------------试播 end--------------------------------------------------- */
   const isGestureShow = isShow && !isTry
+
+  /**-------------------------- ------------- ------------控制键盘- ------------- ------------- ------------- -------------  */
+  const [showKb, setShowKb] = useState(false)
+  const showcb = useCallback(() => {
+    setShowKb(true)
+  }, [])
+
   return (
     <View style={styles.max} {...panResponder.panHandlers}>
       <View style={styles.max}>
@@ -158,6 +168,7 @@ const Index: React.FC<IndexProps> = props => {
             setShowShare(true)
           }}
           zancb={() => {}}
+          showcb={showcb}
           closecb={() => {
             endCall()
             endRTM()
@@ -166,6 +177,10 @@ const Index: React.FC<IndexProps> = props => {
             }, 1000)
           }}
         />
+      )}
+
+      {isGestureShow && (
+        <VideoReply onSend={onSend} uid={uid} showKb={showKb} setShowKb={setShowKb} />
       )}
     </View>
   )

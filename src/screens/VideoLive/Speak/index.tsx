@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, ScrollView, Text } from 'react-native'
+import React, { useRef, useEffect } from 'react'
+import { View, ScrollView, Text, FlatList } from 'react-native'
 import styles from './style'
 
 interface IndexProps {
@@ -8,22 +8,33 @@ interface IndexProps {
 const Index: React.FC<IndexProps> = props => {
   const { messages = [] } = props
 
+  const CarouselRef = useRef<any>(null)
+
+  useEffect(() => {
+    CarouselRef && CarouselRef.current.scrollToEnd()
+  }, [messages])
   return (
     <View style={styles.max}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {messages
-          .reverse()
-          .slice(-10)
-          .map((item, index) => {
-            const { text, user } = item
-            const { name } = user || {}
+      <FlatList
+        ref={CarouselRef}
+        data={messages}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => String(item?.createdAt)}
+        renderItem={({ item, index }) => {
+          const { text, user } = item
 
-            // const tarr = text.split(' ')
-            // const name1 = tarr[0] || ''
-            // const des1 = tarr[1] || ''
-            return <Text key={index}>{text}</Text>
-          })}
-      </ScrollView>
+          const name1 = text.split('  ')[0] || ''
+          const des1 = text.split('  ')[1] || ''
+          return (
+            <View style={styles.item} key={index}>
+              <Text style={styles.name}>{name1}</Text>
+              <View style={styles.des1}>
+                <Text style={styles.des}>{des1}</Text>
+              </View>
+            </View>
+          )
+        }}
+      />
     </View>
   )
 }

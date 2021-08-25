@@ -79,22 +79,51 @@ const useIndex = (shopInfo: any) => {
       const { uid, channelId, text } = evt
       console.log('获取到的信息', JSON.stringify(evt, null, 2))
       if (channelId === channelName) {
-        setMessages(prevState =>
-          GiftedChat.append(prevState, [
-            {
-              _id: +new Date(),
-              text,
-              user: {
-                _id: uid,
-                name: uid.substr(uid.length - 1, uid.length),
-              },
-              createdAt: new Date(),
+        // setMessages(prevState =>
+        //   GiftedChat.append(prevState, [
+        //     {
+        //       _id: +new Date(),
+        //       text,
+        //       user: {
+        //         _id: uid,
+        //         name: uid.substr(uid.length - 1, uid.length),
+        //       },
+        //       createdAt: new Date(),
+        //     },
+        //   ]),
+        // )
+
+        setMessages((pre: any) => [
+          ...pre,
+          {
+            _id: +new Date(),
+            text,
+            user: {
+              _id: uid,
+              name: uid.substr(uid.length - 1, uid.length),
             },
-          ]),
-        )
+            createdAt: new Date(),
+          },
+        ])
       }
     })
   }, [appId, channelName])
+
+  const onSend = useCallback(
+    (messages: any[] = []) => {
+      messages.forEach((message: any) => {
+        engine.current
+          .sendMessageByChannelId(channelName, `${message.text}`)
+          .then(res => {
+            setMessages((pre: any) => [...pre, message])
+          })
+          .catch(err => {
+            console.warn('send failured', err)
+          })
+      })
+    },
+    [channelName],
+  )
 
   const endRTM = useCallback(async () => {
     // const { channelName } = info
@@ -106,7 +135,7 @@ const useIndex = (shopInfo: any) => {
     init()
   }, [init])
 
-  return { endRTM, info, setInfo, messages }
+  return { endRTM, info, setInfo, messages, onSend }
 }
 
 export default useIndex
