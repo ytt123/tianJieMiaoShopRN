@@ -17,6 +17,7 @@ const Index: React.FC<IndexProps> = props => {
     },
     [navigate],
   )
+
   return (
     <View style={style.wrapper}>
       {shop_info.length > 0 && (
