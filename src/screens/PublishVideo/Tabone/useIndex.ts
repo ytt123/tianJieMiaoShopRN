@@ -17,8 +17,8 @@ const useIndex = () => {
   const [info, setInfo] = useState<any>([])
   const [recomInfo, setRecomInfo] = useState<any>([])
   const [title, setTitle] = useState<any>('')
-  const [thum, setThum] = useState<any>('https://static.ppzx168.com.cn/611f5a6db1422.png')
-  // const [thum, setThum] = useState<any>('')
+  // const [thum, setThum] = useState<any>('https://static.ppzx168.com.cn/611f5a6db1422.png')
+  const [thum, setThum] = useState<any>('')
   const [pre_begin_time, setPre_begin_time] = useState<any>('')
   const [isPredictLive, setIsPredictLive] = useState<any>('')
   const [predictTime, setPredictTime] = useState<any>('')
@@ -102,6 +102,7 @@ const useIndex = () => {
         }
       }
 
+      // if (isFormal) {
       //other
       await ajax({ url: url.shopLiveLogsEnd })
       await ajax({
@@ -114,10 +115,10 @@ const useIndex = () => {
           recommend_goods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
         },
       })
-
-      console.log('paramsparamsparamsparams', {
-        recommend_goods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
-      })
+      // console.log('paramsparamsparamsparams', {
+      //   recommend_goods_uuids: recomInfo.map((item: any) => item?.order_goods_uuid),
+      // })
+      // }
 
       const shopReadData = await ajax({
         url: url.shopsRead,

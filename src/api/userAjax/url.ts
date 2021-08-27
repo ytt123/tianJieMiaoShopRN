@@ -33,8 +33,12 @@ const url: {
   userRead: `${PREFIX_URL}/users/read`,
   bankCardsEdit: `${PREFIX_URL}/shop_bank_cards/edit`,
   bankCardsgetDefault: `${PREFIX_URL}/shop_bank_cards/get_default`,
+  bankCardsgetCreate: `${PREFIX_URL}/shop_bank_cards/create`,
+
   agentBankCardsEdit: `${PREFIX_URL}/agent_bank_cards/edit`,
   agentBankCardsgetDefault: `${PREFIX_URL}/agent_bank_cards/get_default`,
+  agentBankCardsgetCreate: `${PREFIX_URL}/agent_bank_cards/create`,
+
   drawcashsCreate: `${PREFIX_URL}/shop_drawcashs/create`,
   agentDrawcashsCreate: `${PREFIX_URL}/agent_drawcashs/create`,
   assetLogsList: `${PREFIX_URL}/asset_logs/list`,

@@ -109,6 +109,7 @@ const Index: React.FC<IndexProps> = props => {
       )}
       {isTry && (
         <Bom
+          goodsinfo={goodsinfo}
           showcb={() => setShowBeauty(true)}
           livecb={() => {
             setTry(false)

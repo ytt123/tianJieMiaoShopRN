@@ -18,32 +18,62 @@ const useIndex = () => {
   const isagent = user_type.indexOf('AGENT') > -1
 
   const submit = useCallback(() => {
+    // console.log(isagent ? '是代理商' : '不是代理商')
     if (!isagent) {
       spinningChange(true)
-      ajax({ url: url.bankCardsEdit, data: info })
-        .then(res => {
-          Toast.show(res?.msg)
-          spinningChange(false)
-          setTimeout(() => {
-            goBack()
-          }, 500)
-        })
-        .catch(err => {
-          spinningChange(false)
-        })
+
+      if (info?.uuid) {
+        ajax({ url: url.bankCardsEdit, data: info })
+          .then(res => {
+            Toast.show(res?.msg)
+            spinningChange(false)
+            setTimeout(() => {
+              goBack()
+            }, 500)
+          })
+          .catch(err => {
+            spinningChange(false)
+          })
+      } else {
+        ajax({ url: url.bankCardsgetCreate, data: info })
+          .then(res => {
+            Toast.show(res?.msg)
+            spinningChange(false)
+            setTimeout(() => {
+              goBack()
+            }, 500)
+          })
+          .catch(err => {
+            spinningChange(false)
+          })
+      }
     } else {
-      spinningChange(true)
-      ajax({ url: url.agentBankCardsEdit, data: info })
-        .then(res => {
-          Toast.show(res?.msg)
-          spinningChange(false)
-          setTimeout(() => {
-            goBack()
-          }, 500)
-        })
-        .catch(err => {
-          spinningChange(false)
-        })
+      if (info?.uuid) {
+        ajax({ url: url.agentBankCardsEdit, data: info })
+          .then(res => {
+            Toast.show(res?.msg)
+            spinningChange(false)
+            setTimeout(() => {
+              goBack()
+            }, 500)
+          })
+          .catch(err => {
+            spinningChange(false)
+          })
+      } else {
+        console.log(JSON.stringify(info, null, 2))
+        ajax({ url: url.agentBankCardsgetCreate, data: info })
+          .then(res => {
+            Toast.show(res?.msg)
+            spinningChange(false)
+            setTimeout(() => {
+              goBack()
+            }, 500)
+          })
+          .catch(err => {
+            spinningChange(false)
+          })
+      }
     }
   }, [goBack, info, isagent, spinningChange])
 
