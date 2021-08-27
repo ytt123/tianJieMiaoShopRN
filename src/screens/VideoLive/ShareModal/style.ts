@@ -38,6 +38,31 @@ const style = StyleSheet.create({
     fontSize: 14,
     color: '#FF2442',
   },
+  bom: {
+    position: 'absolute',
+    bottom: -32,
+    left: 0,
+    right: 0,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
+    borderBottomWidth: 1,
+    // overflow: 'hidden',
+  },
+  shareItem: {
+    flex: 1,
+    width: wid / 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 44,
+    backgroundColor: '#fff',
+  },
+  icon1: {
+    height: 32,
+    width: 32,
+  },
 })
 
 export default style

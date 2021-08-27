@@ -144,6 +144,7 @@ const Index: React.FC<IndexProps> = props => {
           visible={visibleRecomGoods}
           setVisible={sertVisibleRecomGoods}
           info={recominfo}
+          type={'推荐商品'} //推荐商品
         />
       )}
 

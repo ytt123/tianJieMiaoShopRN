@@ -11,13 +11,14 @@ interface IndexProps {
   visible: boolean
   setVisible: any
   info: any
+  type?: string
 }
 const Index: React.FC<IndexProps> = props => {
-  const { visible, setVisible, info } = props
+  const { visible, setVisible, info, type = '购物袋' } = props
 
   const [map, setMap] = useState<any>({ uuid: info, name: '' })
   const { bottom } = useSafeAreaInsets()
-
+  const [copyinfo, setCopyInfo] = useState<any[]>([])
   return (
     <View style={style.wrapper}>
       <Modal
@@ -33,7 +34,7 @@ const Index: React.FC<IndexProps> = props => {
           <View style={style.topWrap}>
             <View style={style.topTitleWrap}>
               <View style={style.topCancelIcon} />
-              <Text style={style.titleText}>购物袋</Text>
+              <Text style={style.titleText}>{type}</Text>
               <Touchable
                 onPress={() => {
                   setVisible(false)
@@ -47,11 +48,21 @@ const Index: React.FC<IndexProps> = props => {
 
           <List
             map={map}
-            info={info}
-            setInfo={() => {}}
+            info={copyinfo}
+            setInfo={setCopyInfo}
             visible={visible}
             setVisible={setVisible}
           />
+          <Touchable
+            style={style.bom}
+            onPress={() => {
+              // setVisible(false)
+              // setInfo(copyinfo)
+              console.log(copyinfo)
+            }}
+          >
+            <Text style={style.btnText}>选好了</Text>
+          </Touchable>
         </View>
       </Modal>
     </View>
